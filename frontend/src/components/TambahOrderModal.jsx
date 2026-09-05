@@ -253,7 +253,7 @@ export const TambahOrderModal = ({ isOpen, onClose, onSuccess }) => {
                   type="text"
                   value={noHp}
                   onChange={(e) => setNoHp(e.target.value)}
-                  placeholder="085234422311"
+                  placeholder="081234567890"
                   style={{ width: '100%', padding: '0.45rem 0.75rem 0.45rem 2rem', border: '1px solid #CBD5E1', borderRadius: '8px', fontSize: '0.75rem', color: '#152C4A', fontFamily: 'monospace', fontWeight: 600, boxSizing: 'border-box' }}
                 />
               </div>

@@ -7,7 +7,7 @@ export const echo = new Echo({
     broadcaster: 'pusher',
     key: import.meta.env.VITE_PUSHER_APP_KEY || 'pusher-key-placeholder',
     cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER || 'ap1',
-    wsHost: import.meta.env.VITE_PUSHER_HOST || '192.168.90.14',
+    wsHost: import.meta.env.VITE_PUSHER_HOST || '127.0.0.1',
     wsPort: import.meta.env.VITE_PUSHER_PORT || 8080,
     wssPort: import.meta.env.VITE_PUSHER_PORT || 8080,
     forceTLS: false,

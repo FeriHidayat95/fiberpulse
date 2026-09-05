@@ -764,7 +764,7 @@ export const PengaturanAI = () => {
                       <div style={{ display: 'flex', gap: '6px' }}>
                         <input
                           type="text"
-                          placeholder="Contoh: 085234422311 atau 62852..."
+                          placeholder="Contoh: 081234567890 atau 62812..."
                           value={pairingPhone}
                           onChange={(e) => setPairingPhone(e.target.value)}
                           onKeyDown={(e) => { if (e.key === 'Enter') handleRequestPairingCode(e); }}
