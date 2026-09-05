@@ -1,4 +1,4 @@
-﻿# FiberPulse Enterprise Design System Specification
+# FiberPulse Enterprise Design System Specification
 
 This document defines the single source of truth (SSOT) for the UI/UX architecture, visual identity, typography, component hierarchy, and responsive layout standards for the FiberPulse Operations Platform.
 
@@ -30,18 +30,31 @@ This document defines the single source of truth (SSOT) for the UI/UX architectu
 
 ---
 
-## 2. Typography System
+## 2. Typography System (Meta Enterprise Standards)
 
-* **Primary Font Family:** `Plus Jakarta Sans`, `Inter`, `-apple-system`, `BlinkMacSystemFont`, `sans-serif`
-* **Technical / Data Font Family:** `JetBrains Mono`, `monospace` (Used for: IP Addresses, Serial Numbers (SN), Rx Power dBm, Order Numbers, Port IDs)
-* **Strict Hierarchy:**
-  * **Page Heading (H1):** `text-lg sm:text-xl font-bold text-[#152C4A] tracking-tight`
-  * **Section Heading (H2/H3):** `text-xs sm:text-sm font-bold text-[#152C4A] uppercase tracking-wider`
-  * **Metric Large Numbers:** `text-xl sm:text-2xl font-bold text-[#152C4A] tracking-tight`
-  * **Body / Table Data:** `text-xs font-medium text-slate-700`
-  * **Subtext & Microcopy:** `text-[11px] text-slate-500 font-normal`
-  * **Uppercase Badges & Labels:** `text-[10px] font-bold uppercase tracking-wider`
-* **Zero Emojis Policy:** Absolute zero emojis in UI buttons, tables, cards, and system status to maintain a high-end corporate enterprise look. All visual cues use clean Lucide SVG icons.
+FiberPulse adopts Meta's enterprise product design system typography standards (Astryx & Meta Business Suite specification), prioritizing optical clarity, high x-height, and semantic type tokens.
+
+### 2.1 Font Family Stacks
+* **Primary Interface Stack (Meta System Sans):**
+  `"Optimistic Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif`
+* **Headline & Display Stack:**
+  `"Optimistic Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif`
+* **Technical & Telemetry Monospace Stack:**
+  `"SF Mono", "JetBrains Mono", "Roboto Mono", Menlo, Consolas, monospace`
+  *(Strictly utilized for: IP Addresses, MAC addresses, Serial Numbers (SN), Optical Rx Power dBm, Work Order IDs, and Port Matrix indices)*
+
+### 2.2 Typographic Hierarchy & Scale (1.2 Geometric Scale)
+* **Page Title (Display / H1):** `text-lg sm:text-xl font-bold text-[#152C4A] tracking-tight` (18px - 20px, Leading: 24px)
+* **Card & Section Header (H2/H3):** `text-xs sm:text-sm font-semibold text-[#152C4A] tracking-normal` (13px - 14px, Leading: 18px)
+* **Metric Hero Numbers:** `text-xl sm:text-2xl font-bold text-[#152C4A] tracking-tight` (22px - 24px, Tabular figures)
+* **Body / Table Cells:** `text-xs font-normal sm:font-medium text-slate-700` (12px - 13px, Leading: 16px)
+* **Meta Secondary Subtext & Timestamps:** `text-[11px] text-slate-500 font-normal` (11px, Leading: 14px)
+* **Status Badges & Matrix Labels:** `text-[10px] font-semibold tracking-wider uppercase` (10px)
+
+### 2.3 Strict Typography Rules
+1. **Zero Emojis Policy:** Absolute zero emojis in UI buttons, tables, cards, and system status to maintain a high-end corporate enterprise look. All visual cues use clean Lucide SVG icons.
+2. **Tabular Numerics:** All network metrics, throughputs, and fiber power levels use monospace tabular figures (`JetBrains Mono` / `SF Mono`) to prevent layout jitter on live WebSocket updates.
+3. **No Faux Italics:** In accordance with Meta Horizon & Astryx guidelines, oblique/italic text is avoided in operational dashboards to preserve high-contrast readability.
 
 ---
 
