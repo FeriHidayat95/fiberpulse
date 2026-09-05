@@ -1,6 +1,6 @@
-<div align="center">
+﻿<div align="center">
 
-# 🌐 FiberPulse
+# FiberPulse
 ### Enterprise FTTH Network Topology, Geospatial ODP Mapper & Real-Time Field Dispatch Platform
 
 [![CI Pipeline](https://img.shields.io/badge/CI-Passing-brightgreen?style=for-the-badge&logo=githubactions&logoColor=white)](#)
@@ -11,28 +11,28 @@
 [![WebSockets](https://img.shields.io/badge/WebSockets-Reverb-000000?style=for-the-badge&logo=socket.io&logoColor=white)](#)
 
 <p align="center">
-  <b>A production-grade, containerized operations platform designed for modern Internet Service Providers (ISPs) and telecom operators.</b><br/>
+  A production-grade, containerized operations platform designed for modern Internet Service Providers (ISPs) and telecom operators.<br/>
   Combines geospatial GIS mapping, real-time technician dispatching, QR-based optical terminal provisioning, and asset lifecycle tracking.
 </p>
 
-[Key Features](#-key-features) • [System Architecture](#-system-architecture) • [Quick Start](#-quick-start) • [Tech Stack](#-tech-stack) • [Demo Credentials](#-demo-credentials)
+[Overview](#overview) • [System Architecture](#system-architecture) • [Visual Showcase](#visual-showcase) • [Key Capabilities](#key-capabilities) • [Technology Matrix](#technology-matrix) • [Quick Start](#quick-start) • [API Reference](#api-reference)
 
 ---
 
 </div>
 
-## 📌 Executive Summary
+## Overview
 
 Deploying and maintaining Fiber-to-the-Home (FTTH) infrastructure involves managing thousands of distributed Optical Distribution Points (ODPs), optical splitters, drop cables, and on-the-ground technician fleets. 
 
-**FiberPulse** streamlines physical telecom operations into an integrated digital command center:
+FiberPulse streamlines physical telecom operations into an integrated digital command center:
 1. **Physical Network Visibility:** Eliminates disconnected spreadsheets by placing all physical ODPs, port capacities, and optical signals onto a unified geospatial GIS canvas.
 2. **Real-Time Fleet Coordination:** Dispatches work orders to field engineers instantly over WebSockets with zero page refreshes.
 3. **Zero-Touch Field Provisioning:** Technicians scan Optical Network Terminal (ONT) QR codes to verify optical Rx power levels (dBm) and provision subscriber connections on-site through a Progressive Web App (PWA).
 
 ---
 
-## 🏗️ System Architecture
+## System Architecture
 
 ```mermaid
 flowchart TB
@@ -70,7 +70,7 @@ flowchart TB
 
 ---
 
-## 📸 Visual Showcase
+## Visual Showcase
 
 <div align="center">
   <h3>Operations Center & Executive Analytics</h3>
@@ -86,7 +86,7 @@ flowchart TB
       <td width="50%" align="center">
         <b>Interactive Geospatial ODP Planning</b><br/><br/>
         <img src="docs/screenshots/gis_odp_map.png" alt="Geospatial FTTH ODP Mapping" width="100%" />
-        <p align="left"><sub>Real-time optical port capacity tracking (Green/Amber/Red), drop cable distance calculations, and fiber route planning.</sub></p>
+        <p align="left"><sub>Real-time optical port capacity tracking, drop cable distance calculations, and fiber route planning.</sub></p>
       </td>
       <td width="50%" align="center">
         <b>Work Order & Fleet Dispatching</b><br/><br/>
@@ -99,53 +99,53 @@ flowchart TB
 
 ---
 
-## ✨ Key Features
+## Key Capabilities
 
-### 🗺️ Geospatial FTTH & ODP Infrastructure Mapping
+### Geospatial FTTH & ODP Infrastructure Mapping
 - Interactive Leaflet-powered GIS map visualizing all distribution posts and optical splitters.
 - Color-coded capacity indicators:
-  - 🟢 **Available (<80% port usage)**
-  - 🟡 **Near Full (80% - 99% capacity)**
-  - 🔴 **Full (100% capacity / requires new splitter deployment)**
+  - `Available`: Less than 80% port usage (Green indicator).
+  - `Near Full`: 80% to 99% capacity (Amber indicator).
+  - `At Capacity`: 100% capacity / requires new splitter deployment (Red indicator).
 - Geospatial distance calculation ensuring new subscribers are attached to the nearest qualifying optical terminal.
 
-### ⚡ Real-Time Field Technician Dispatching
+### Real-Time Field Technician Dispatching
 - Event-driven work order dispatching powered by **Laravel Reverb WebSockets**.
 - Live status transitions: `Pending` → `Dispatched` → `In Progress` → `Verified & Completed`.
 - Live location coordinate logging for audits and SLA tracking.
 
-### 📱 Progressive Web App (PWA) & Hardware Onboarding
+### Progressive Web App (PWA) & Hardware Onboarding
 - Designed mobile-first for field crews working in low-connectivity suburban environments.
 - Integrated camera QR scanner (`html5-qrcode`) for serial number verification on optical routers and ONTs.
 - Optical Rx signal telemetry input (dBm calibration validation before job closeout).
 
-### 📦 Warehouse & Asset Lifecycle Management
+### Warehouse & Asset Lifecycle Management
 - Real-time inventory tracking for fiber optic cables, patch cords, fast connectors, and active ONT routers.
 - Automatic inventory reconciliation upon work order completion.
 
-### 🛡️ Enterprise Security & Defensive Architecture
+### Defensive Architecture & Security
 - Strict Role-Based Access Control (RBAC) separating administrative authority from field operations.
 - Zero secret leak design with environment abstraction and input sanitization.
 - Clean database migrations with automated mock dataset seeding.
 
 ---
 
-## 🛠️ Tech Stack
+## Technology Matrix
 
-| Domain | Technology | Description |
+| Layer | Technologies | Role & Implementation |
 | :--- | :--- | :--- |
-| **Frontend UI** | React 19, Vite, Tailwind CSS | High-performance reactive UI with modern CSS variables |
-| **State & Data Fetching** | TanStack React Query v5, Zustand | Optimistic mutations, automated query invalidation |
-| **Geospatial & Mapping** | Leaflet, React-Leaflet | Open-source interactive map engine |
-| **Real-Time Engine** | Laravel Reverb, Laravel Echo | High-concurrency native WebSocket server |
-| **Backend Framework** | Laravel 11/12, PHP 8.3 | Clean MVC/Service architecture with Sanctum authentication |
-| **Database & Cache** | PostgreSQL 16 / SQLite, Redis 7 | Relational transactional safety + high-throughput caching |
-| **Containerization** | Docker, Docker Compose | Single-command reproducible development and production builds |
-| **CI/CD & Audit** | GitHub Actions, Gitleaks | Automated linting, test suite execution, and secret scanning |
+| **Frontend UI** | React 19, Vite, Tailwind CSS | High-performance reactive UI with component-level modularity |
+| **State & Data Fetching** | TanStack React Query v5, Zustand | Optimistic mutations, automatic query invalidation, client cache |
+| **Geospatial & Mapping** | Leaflet, React-Leaflet | Open-source interactive GIS map canvas |
+| **Real-Time Engine** | Laravel Reverb, Laravel Echo | Native WebSocket server with zero third-party hosted dependencies |
+| **Backend API** | Laravel 11/12, PHP 8.3 | Clean MVC/Service architecture with Sanctum authentication |
+| **Database & Cache** | PostgreSQL 16 / SQLite, Redis 7 | Relational transactional safety paired with high-throughput caching |
+| **Containerization** | Docker, Docker Compose | Single-command reproducible development and production environments |
+| **DevOps & Audit** | GitHub Actions, Gitleaks | Automated linting, test suite execution, and secret scanning |
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 - [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/) installed.
@@ -175,11 +175,12 @@ docker compose exec backend php artisan migrate --seed
 - **Web Application Portal:** [http://localhost:5173](http://localhost:5173) (or [http://localhost](http://localhost))
 - **REST API Endpoint:** [http://localhost:8000/api](http://localhost:8000/api)
 - **API Reference Specification:** [`docs/api-reference.md`](docs/api-reference.md)
+- **Design System Specification:** [`docs/DESIGN.md`](docs/DESIGN.md)
 - **WebSocket Server:** `ws://localhost:8080/app`
 
 ---
 
-## 🔑 Demo Credentials
+## Demo Credentials
 
 The database seeder automatically initializes sanitized demo accounts:
 
@@ -191,20 +192,32 @@ The database seeder automatically initializes sanitized demo accounts:
 
 ---
 
-## 🧪 Running Tests & Quality Checks
+## API Reference
+
+Comprehensive documentation for all REST endpoints and WebSocket channels is maintained in [`docs/api-reference.md`](docs/api-reference.md).
+
+Key Endpoints:
+- `POST /api/login` - Authenticate users and issue Sanctum bearer token.
+- `GET /api/dashboard/summary` - Aggregate real-time network and workforce metrics.
+- `GET /api/odps` - Retrieve GIS coordinate array and port capacity indicators.
+- `POST /api/tasks/{id}/complete` - Record optical signal readings and provision subscriber.
+
+---
+
+## Testing & Quality Assurance
 
 ```bash
-# Backend Automated Test Suite
+# Run Backend Automated Test Suite
 docker compose exec backend php artisan test
 
-# Frontend Build & Lint Check
+# Run Frontend Production Build & Linting
 cd frontend
 npm run build
 ```
 
 ---
 
-## 📄 License & Attribution
+## License
 
-This project is licensed under the [MIT License](LICENSE).
-Developed by **[Feri Hidayat](https://github.com/FeriHidayat95)** — Open for global remote engineering opportunities.
+This project is licensed under the [MIT License](LICENSE).  
+Maintained by [Feri Hidayat](https://github.com/FeriHidayat95). Open for global remote engineering roles.
