@@ -3,8 +3,9 @@
 # FiberPulse
 ### Enterprise FTTH Network Topology, Geospatial ODP Mapper & Real-Time Field Dispatch Platform
 
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Interactive_Preview-1E88C7?style=for-the-badge&logo=google-chrome&logoColor=white)](https://ferihidayat95.github.io/fiberpulse/)
 [![CI Pipeline](https://img.shields.io/badge/CI-Passing-brightgreen?style=for-the-badge&logo=githubactions&logoColor=white)](#)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
+[![License: Portfolio-Only](https://img.shields.io/badge/License-Portfolio--Only-red?style=for-the-badge)](LICENSE)
 [![Docker Ready](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)](#)
 [![React 19](https://img.shields.io/badge/React-19.x-61DAFB?style=for-the-badge&logo=react&logoColor=black)](#)
 [![Laravel](https://img.shields.io/badge/Laravel-11%2F12-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](#)
