@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=390, height=844, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>FiberPulse Field - GIS ODP Network</title>
+  
+  <!-- Modern Clean Typography: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Inter"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              navy: '#152C4A',
+              azure: '#42A1D3',
+              blue: '#2563EB',
+              ice: '#F1F7FC',
+              border: '#E2EBF4',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      background-color: #0F172A;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      width: 390px;
+      height: 844px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .brand-gradient {
+      background: linear-gradient(135deg, #152C4A 0%, #2563EB 100%) !important;
+      color: #FFFFFF !important;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+</head>
+<body class="relative bg-slate-900 text-slate-900 select-none">
+
+  <!-- Mobile Frame Container (390 x 844) -->
+  <div class="w-[390px] h-[844px] flex flex-col bg-slate-50 relative overflow-hidden">
+    
+    <!-- iOS / PWA Status Bar Simulation -->
+    <div class="bg-brand-navy text-white px-5 pt-2 pb-1.5 flex items-center justify-between text-[11px] font-medium tracking-tight">
+      <span>09:41</span>
+      <div class="flex items-center space-x-1.5">
+        <span class="text-[10px] font-mono text-emerald-400 font-semibold tracking-wider">5G</span>
+        <div class="w-3.5 h-2 border border-white/70 rounded-[2px] p-0.5 flex items-center">
+          <div class="h-full w-2 bg-emerald-400 rounded-[1px]"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PWA Top App Bar -->
+    <header class="bg-brand-navy px-4 py-3 text-white shadow-md z-30">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-blue to-brand-azure flex items-center justify-center shadow-inner">
+            <i data-lucide="activity" class="w-4 h-4 text-white"></i>
+          </div>
+          <div>
+            <div class="flex items-center space-x-1.5">
+              <h1 class="font-bold text-sm tracking-tight">FiberPulse Field</h1>
+              <span class="text-[9px] px-1.5 py-0.2 bg-blue-500/20 text-blue-300 font-mono rounded border border-blue-400/30">v2.4</span>
+            </div>
+            <p class="text-[10px] text-slate-300 flex items-center mt-0.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5 animate-pulse"></span>
+              Alex Rivera &bull; GPS Synchronized
+            </p>
+          </div>
+        </div>
+        
+        <div class="flex items-center space-x-2">
+          <button class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white relative transition">
+            <i data-lucide="bell" class="w-4 h-4"></i>
+            <span class="absolute top-1 right-1 w-2 h-2 bg-amber-400 rounded-full"></span>
+          </button>
+          <div class="w-8 h-8 rounded-full border border-brand-azure/40 bg-brand-azure/20 flex items-center justify-center text-[11px] font-bold text-brand-azure">
+            AR
+          </div>
+        </div>
+      </div>
+
+      <!-- Search & Quick Filter Bar -->
+      <div class="mt-3 relative">
+        <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5"></i>
+        <input 
+          type="text" 
+          value="ODP-CTR-01 (Downtown Sector)" 
+          readonly
+          class="w-full pl-8 pr-8 py-1.5 bg-slate-800/80 border border-slate-700/80 rounded-lg text-xs text-white placeholder-slate-400 font-sans focus:outline-none"
+        />
+        <button class="absolute right-2.5 top-2 text-slate-400 hover:text-white">
+          <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5"></i>
+        </button>
+      </div>
+
+      <!-- Sector Badges / Quick Switcher -->
+      <div class="flex items-center space-x-1.5 mt-2.5 overflow-x-auto custom-scrollbar text-[11px] pb-0.5">
+        <span class="px-2.5 py-1 rounded-md bg-brand-azure text-white font-medium shadow-sm flex-shrink-0 cursor-pointer">All Sectors</span>
+        <span class="px-2.5 py-1 rounded-md bg-slate-800/70 text-slate-300 hover:bg-slate-800 font-medium flex-shrink-0 cursor-pointer">Sector A (Central)</span>
+        <span class="px-2.5 py-1 rounded-md bg-slate-800/70 text-slate-300 hover:bg-slate-800 font-medium flex-shrink-0 cursor-pointer">Sector B (West)</span>
+        <span class="px-2.5 py-1 rounded-md bg-slate-800/70 text-slate-300 hover:bg-slate-800 font-medium flex-shrink-0 cursor-pointer">Sector C (East)</span>
+      </div>
+    </header>
+
+    <!-- Interactive Leaflet / Vector GIS Map Simulation -->
+    <div class="relative flex-1 bg-[#EAF2F8] overflow-hidden">
+      
+      <!-- SVG Styled Map Canvas Background -->
+      <svg class="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#D8E5F0" stroke-width="0.75"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="#EEF5F9" />
+        <rect width="100%" height="100%" fill="url(#grid)" />
+        
+        <!-- Roads / Streets -->
+        <path d="M -10 120 C 80 140, 180 110, 400 130" stroke="#FFFFFF" stroke-width="14" fill="none" />
+        <path d="M -10 120 C 80 140, 180 110, 400 130" stroke="#CBD5E1" stroke-width="1.5" fill="none" />
+        
+        <path d="M 120 -10 C 130 150, 160 250, 190 450" stroke="#FFFFFF" stroke-width="18" fill="none" />
+        <path d="M 120 -10 C 130 150, 160 250, 190 450" stroke="#CBD5E1" stroke-width="1.5" fill="none" />
+        
+        <path d="M -10 240 C 150 220, 240 280, 410 260" stroke="#FFFFFF" stroke-width="12" fill="none" />
+        <path d="M -10 240 C 150 220, 240 280, 410 260" stroke="#CBD5E1" stroke-width="1.2" fill="none" />
+        
+        <path d="M 280 -10 C 270 120, 310 280, 320 450" stroke="#FFFFFF" stroke-width="10" fill="none" />
+        <path d="M 280 -10 C 270 120, 310 280, 320 450" stroke="#CBD5E1" stroke-width="1" fill="none" />
+
+        <!-- Optical Fiber Trunk Line (Feeder Cable: Navy / Blue) -->
+        <path d="M 125 0 L 140 125 L 205 180 L 290 265" stroke="#152C4A" stroke-width="3.5" fill="none" stroke-dasharray="8 3" opacity="0.8" />
+        
+        <!-- Distribution Cable branches -->
+        <path d="M 205 180 L 70 210" stroke="#2563EB" stroke-width="2.5" fill="none" opacity="0.75" />
+        <path d="M 205 180 L 235 90" stroke="#2563EB" stroke-width="2.5" fill="none" opacity="0.75" />
+        <path d="M 290 265 L 340 310" stroke="#2563EB" stroke-width="2.5" fill="none" opacity="0.75" />
+        
+        <!-- Zone Boundary Radius (ODP-CTR-01 Coverage Area) -->
+        <circle cx="205" cy="180" r="72" fill="#42A1D3" fill-opacity="0.12" stroke="#2563EB" stroke-width="1.5" stroke-dasharray="4 3" />
+      </svg>
+
+      <!-- Map Overlay Floating Controls -->
+      <div class="absolute top-3 right-3 flex flex-col space-y-2 z-10">
+        <button class="w-8 h-8 rounded-lg bg-white shadow-md border border-slate-200 flex items-center justify-center text-slate-700 hover:bg-slate-50 font-bold text-sm">
+          +
+        </button>
+        <button class="w-8 h-8 rounded-lg bg-white shadow-md border border-slate-200 flex items-center justify-center text-slate-700 hover:bg-slate-50 font-bold text-sm">
+          -
+        </button>
+        <button class="w-8 h-8 rounded-lg bg-white shadow-md border border-slate-200 flex items-center justify-center text-brand-blue hover:bg-slate-50">
+          <i data-lucide="crosshair" class="w-4 h-4"></i>
+        </button>
+        <button class="w-8 h-8 rounded-lg bg-white shadow-md border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-50">
+          <i data-lucide="layers" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- Map Overlay Mode Pill -->
+      <div class="absolute top-3 left-3 z-10 bg-white/95 backdrop-blur px-2.5 py-1 rounded-full shadow-md border border-slate-200 flex items-center space-x-1.5">
+        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        <span class="text-[10px] font-semibold text-slate-700">GIS Live Feed</span>
+        <span class="text-[9px] text-slate-400 font-mono">&bull; 4 Nodes Active</span>
+      </div>
+
+      <!-- ODP Point 1: Selected Active Node (ODP-CTR-01) -->
+      <div class="absolute top-[135px] left-[165px] z-20 flex flex-col items-center cursor-pointer">
+        <!-- Callout Badge -->
+        <div class="bg-brand-navy text-white text-[10px] px-2 py-0.5 rounded shadow-lg font-mono font-semibold flex items-center space-x-1 mb-1 border border-brand-azure/50">
+          <span>ODP-CTR-01</span>
+          <span class="text-emerald-400 font-bold">6/16</span>
+        </div>
+        <!-- Pulse pin -->
+        <div class="relative flex items-center justify-center">
+          <span class="animate-ping absolute inline-flex h-7 w-7 rounded-full bg-emerald-400 opacity-60"></span>
+          <div class="w-7 h-7 rounded-full bg-brand-navy border-2 border-emerald-400 flex items-center justify-center shadow-lg">
+            <i data-lucide="box" class="w-3.5 h-3.5 text-emerald-400"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- ODP Point 2: Near Capacity (ODP-WST-02) -->
+      <div class="absolute top-[175px] left-[45px] z-10 flex flex-col items-center cursor-pointer opacity-95">
+        <div class="bg-white text-slate-800 text-[9px] px-1.5 py-0.5 rounded shadow border border-amber-300 font-mono font-medium flex items-center space-x-1 mb-1">
+          <span>ODP-WST-02</span>
+          <span class="text-amber-600 font-bold">7/8</span>
+        </div>
+        <div class="w-6 h-6 rounded-full bg-amber-500 border-2 border-white flex items-center justify-center shadow">
+          <i data-lucide="box" class="w-3 h-3 text-white"></i>
+        </div>
+      </div>
+
+      <!-- ODP Point 3: At Capacity (ODP-EST-03) -->
+      <div class="absolute top-[80px] left-[205px] z-10 flex flex-col items-center cursor-pointer opacity-95">
+        <div class="bg-white text-slate-800 text-[9px] px-1.5 py-0.5 rounded shadow border border-rose-300 font-mono font-medium flex items-center space-x-1 mb-1">
+          <span>ODP-EST-03</span>
+          <span class="text-rose-600 font-bold">16/16</span>
+        </div>
+        <div class="w-6 h-6 rounded-full bg-rose-500 border-2 border-white flex items-center justify-center shadow">
+          <i data-lucide="box" class="w-3 h-3 text-white"></i>
+        </div>
+      </div>
+
+      <!-- ODP Point 4: Available (ODP-NTH-04) -->
+      <div class="absolute top-[230px] left-[265px] z-10 flex flex-col items-center cursor-pointer opacity-95">
+        <div class="bg-white text-slate-800 text-[9px] px-1.5 py-0.5 rounded shadow border border-emerald-300 font-mono font-medium flex items-center space-x-1 mb-1">
+          <span>ODP-NTH-04</span>
+          <span class="text-emerald-600 font-bold">3/16</span>
+        </div>
+        <div class="w-6 h-6 rounded-full bg-emerald-500 border-2 border-white flex items-center justify-center shadow">
+          <i data-lucide="box" class="w-3 h-3 text-white"></i>
+        </div>
+      </div>
+
+      <!-- Field Technician Current Location Pin -->
+      <div class="absolute top-[210px] left-[150px] z-20 flex flex-col items-center">
+        <div class="w-5 h-5 rounded-full bg-brand-blue border-2 border-white shadow-md flex items-center justify-center">
+          <div class="w-2 h-2 rounded-full bg-white animate-pulse"></div>
+        </div>
+        <span class="bg-slate-900/80 backdrop-blur text-[8px] text-white px-1.5 py-0.2 rounded mt-0.5 font-medium">You (140m away)</span>
+      </div>
+
+      <!-- Bottom Sheet Drawer (ODP Telemetry & Port Inspector) -->
+      <div class="absolute bottom-0 inset-x-0 bg-white rounded-t-2xl shadow-[0_-8px_25px_rgba(0,0,0,0.12)] border-t border-slate-200 z-30 flex flex-col max-h-[355px]">
+        
+        <!-- Sheet Handle -->
+        <div class="w-full flex items-center justify-center pt-2 pb-1 cursor-pointer">
+          <div class="w-10 h-1 bg-slate-300 rounded-full"></div>
+        </div>
+
+        <div class="px-4 pb-3 pt-1 overflow-y-auto custom-scrollbar">
+          <!-- Selected Node Header -->
+          <div class="flex items-start justify-between pb-2.5 border-b border-slate-100">
+            <div>
+              <div class="flex items-center space-x-2">
+                <h3 class="font-bold text-sm text-brand-navy">ODP-CTR-01</h3>
+                <span class="px-2 py-0.5 text-[9px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-full">
+                  Operational &bull; Normal
+                </span>
+              </div>
+              <p class="text-[11px] text-slate-500 mt-0.5 flex items-center">
+                <i data-lucide="map-pin" class="w-3 h-3 mr-1 text-slate-400"></i>
+                Downtown Sector &bull; Pole #FTTH-0894
+              </p>
+            </div>
+            
+            <div class="text-right">
+              <span class="font-mono text-xs font-bold text-brand-navy">10 Ports Free</span>
+              <p class="text-[9px] text-slate-400 font-mono">Capacity: 16 Ports</p>
+            </div>
+          </div>
+
+          <!-- Quick Metrics Ribbon -->
+          <div class="grid grid-cols-3 gap-2 my-2.5">
+            <div class="bg-brand-ice/60 border border-brand-border/80 rounded-lg p-2 text-center">
+              <span class="text-[10px] text-slate-500 block font-medium">Rx Optical Pwr</span>
+              <span class="font-mono text-xs font-bold text-emerald-600">-19.4 dBm</span>
+            </div>
+            <div class="bg-brand-ice/60 border border-brand-border/80 rounded-lg p-2 text-center">
+              <span class="text-[10px] text-slate-500 block font-medium">Splitter Ratio</span>
+              <span class="font-mono text-xs font-bold text-brand-navy">1:16 PLC</span>
+            </div>
+            <div class="bg-brand-ice/60 border border-brand-border/80 rounded-lg p-2 text-center">
+              <span class="text-[10px] text-slate-500 block font-medium">Drop Cable Dis</span>
+              <span class="font-mono text-xs font-bold text-brand-blue">42m to ONT</span>
+            </div>
+          </div>
+
+          <!-- Port Grid Layout (Visual 16 Ports) -->
+          <div class="mt-1">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="text-[11px] font-bold text-slate-700 uppercase tracking-wider">Port Matrix (16 Ports)</span>
+              <span class="text-[10px] text-slate-400 font-mono">6 Connected &bull; 10 Idle</span>
+            </div>
+
+            <!-- 16 Port Status Matrix -->
+            <div class="grid grid-cols-8 gap-1.5 bg-slate-50 p-2 rounded-lg border border-slate-200">
+              <!-- Port 1-6 Active -->
+              <div class="flex flex-col items-center justify-center p-1 bg-white border border-emerald-300 rounded shadow-xs">
+                <span class="text-[8px] font-mono font-bold text-slate-600">P1</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-0.5"></span>
+              </div>
+              <div class="flex flex-col items-center justify-center p-1 bg-white border border-emerald-300 rounded shadow-xs">
+                <span class="text-[8px] font-mono font-bold text-slate-600">P2</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-0.5"></span>
+              </div>
+              <div class="flex flex-col items-center justify-center p-1 bg-white border border-emerald-300 rounded shadow-xs">
+                <span class="text-[8px] font-mono font-bold text-slate-600">P3</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-0.5"></span>
+              </div>
+              <div class="flex flex-col items-center justify-center p-1 bg-white border border-emerald-300 rounded shadow-xs">
+                <span class="text-[8px] font-mono font-bold text-slate-600">P4</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-0.5"></span>
+              </div>
+              <div class="flex flex-col items-center justify-center p-1 bg-white border border-emerald-300 rounded shadow-xs">
+                <span class="text-[8px] font-mono font-bold text-slate-600">P5</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-0.5"></span>
+              </div>
+              <div class="flex flex-col items-center justify-center p-1 bg-white border border-emerald-300 rounded shadow-xs">
+                <span class="text-[8px] font-mono font-bold text-slate-600">P6</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-0.5"></span>
+              </div>
+              <!-- Port 7 Selected for Connection -->
+              <div class="flex flex-col items-center justify-center p-1 bg-blue-50 border-2 border-brand-blue rounded shadow-xs ring-2 ring-blue-100">
+                <span class="text-[8px] font-mono font-bold text-brand-blue">P7</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-brand-blue mt-0.5"></span>
+              </div>
+              <!-- Ports 8-16 Empty -->
+              <div class="flex flex-col items-center justify-center p-1 bg-white border border-slate-200 rounded">
+                <span class="text-[8px] font-mono text-slate-400">P8</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mt-0.5"></span>
+              </div>
+              <div class="flex flex-col items-center justify-center p-1 bg-white border border-slate-200 rounded">
+                <span class="text-[8px] font-mono text-slate-400">P9</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mt-0.5"></span>
+              </div>
+              <div class="flex flex-col items-center justify-center p-1 bg-white border border-slate-200 rounded">
+                <span class="text-[8px] font-mono text-slate-400">P10</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mt-0.5"></span>
+              </div>
+              <div class="flex flex-col items-center justify-center p-1 bg-white border border-slate-200 rounded">
+                <span class="text-[8px] font-mono text-slate-400">P11</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mt-0.5"></span>
+              </div>
+              <div class="flex flex-col items-center justify-center p-1 bg-white border border-slate-200 rounded">
+                <span class="text-[8px] font-mono text-slate-400">P12</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mt-0.5"></span>
+              </div>
+              <div class="flex flex-col items-center justify-center p-1 bg-white border border-slate-200 rounded">
+                <span class="text-[8px] font-mono text-slate-400">P13</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mt-0.5"></span>
+              </div>
+              <div class="flex flex-col items-center justify-center p-1 bg-white border border-slate-200 rounded">
+                <span class="text-[8px] font-mono text-slate-400">P14</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mt-0.5"></span>
+              </div>
+              <div class="flex flex-col items-center justify-center p-1 bg-white border border-slate-200 rounded">
+                <span class="text-[8px] font-mono text-slate-400">P15</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mt-0.5"></span>
+              </div>
+              <div class="flex flex-col items-center justify-center p-1 bg-white border border-slate-200 rounded">
+                <span class="text-[8px] font-mono text-slate-400">P16</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mt-0.5"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="grid grid-cols-2 gap-2 mt-3">
+            <button class="flex items-center justify-center space-x-1.5 py-2 px-3 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-50 font-medium text-xs">
+              <i data-lucide="scan-barcode" class="w-3.5 h-3.5 text-slate-500"></i>
+              <span>Audit ODP Tag</span>
+            </button>
+            <button class="brand-gradient flex items-center justify-center space-x-1.5 py-2 px-3 rounded-lg text-white font-medium text-xs shadow-sm hover:opacity-95">
+              <i data-lucide="link" class="w-3.5 h-3.5"></i>
+              <span>Assign Port 07</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PWA Bottom Navigation Bar -->
+    <nav class="bg-white border-t border-slate-200 px-4 py-2 flex items-center justify-between z-30">
+      
+      <button class="flex flex-col items-center text-slate-400 hover:text-slate-600 w-16">
+        <i data-lucide="clipboard-list" class="w-5 h-5"></i>
+        <span class="text-[10px] mt-1 font-medium">My Tasks</span>
+      </button>
+
+      <button class="flex flex-col items-center text-brand-blue w-16 relative">
+        <div class="w-8 h-8 rounded-full bg-blue-50 text-brand-blue flex items-center justify-center mb-0.5 shadow-xs border border-blue-200">
+          <i data-lucide="map" class="w-4 h-4"></i>
+        </div>
+        <span class="text-[10px] font-bold text-brand-navy">GIS Map</span>
+      </button>
+
+      <button class="flex flex-col items-center text-slate-400 hover:text-slate-600 w-16">
+        <i data-lucide="package" class="w-5 h-5"></i>
+        <span class="text-[10px] mt-1 font-medium">Inventory</span>
+      </button>
+
+      <button class="flex flex-col items-center text-slate-400 hover:text-slate-600 w-16">
+        <i data-lucide="user" class="w-5 h-5"></i>
+        <span class="text-[10px] mt-1 font-medium">Profile</span>
+      </button>
+
+    </nav>
+
+  </div>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
