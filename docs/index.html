@@ -1,4 +1,72 @@
-<!DOCTYPE html> <html lang="id" class="light"> <head>   <meta charset="UTF-8" />   <meta name="viewport" content="width=device-width, initial-scale=1.0" />   <title>FiberPulse - Operations Center & GIS Topology Platform</title>      <!-- Modern Clean Typography: Plus Jakarta Sans & JetBrains Mono -->   <link rel="preconnect" href="https://fonts.googleapis.com">   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">      <!-- Tailwind CSS CDN -->   <script src="https://cdn.tailwindcss.com"></script>   <script>     tailwind.config = {       darkMode: 'class',       theme: {         extend: {           fontFamily: {             sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],             mono: ['"JetBrains Mono"', 'monospace'],           },           colors: {             brand: {               50: '#F0F7FC',               100: '#E1F0F8',               200: '#B8DCF0',               300: '#7EC1E4',               400: '#42A1D3', // FiberPulse Azure Blue               500: '#1E88C7',               600: '#146DA5',               700: '#125886',               800: '#124B70',               900: '#152C4A', // FiberPulse Deep Navy               950: '#0B192C',             },             slate: {               50: '#F8FAFC',               100: '#F1F5F9',               200: '#E2E8F0',               300: '#CBD5E1',               400: '#94A3B8',               500: '#64748B',               600: '#475569',               700: '#334155',               800: '#1E293B',               900: '#0F172A',               950: '#020617',             }           }         }       }     }   </script>    <!-- Lucide Icons -->   <script src="https://unpkg.com/lucide@latest"></script>      <!-- Chart.js -->   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>    <style>     /* Clean Enterprise Scrollbars */     ::-webkit-scrollbar { width: 5px; height: 5px; }     ::-webkit-scrollbar-track { background: transparent; }     ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.4); border-radius: 999px; }     ::-webkit-scrollbar-thumb:hover { background: rgba(100, 116, 139, 0.7); }      .pulse-dot {       animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;     }     @keyframes pulse-ring {       0%, 100% { opacity: 1; transform: scale(1); }       50% { opacity: .4; transform: scale(0.9); }     }      /* Device Preview Frame Container */     #viewport-frame {       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);     }   </style> </head>  <body class="bg-slate-900 text-slate-100 font-sans antialiased min-h-screen flex flex-col overflow-hidden select-none">
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FiberPulse - FTTH Network Topology & Field Fleet Dispatch Platform</title>
+
+  <!-- Typography Stack: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#F0F7FC',
+              100: '#E1F0F8',
+              200: '#B8DCF0',
+              300: '#7EC1E4',
+              400: '#42A1D3',
+              500: '#1E88C7',
+              600: '#146DA5',
+              700: '#125886',
+              800: '#124B70',
+              900: '#152C4A',
+              950: '#0B192C',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.4); border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(100, 116, 139, 0.7); }
+
+    .pulse-dot {
+      animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    @keyframes pulse-ring {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .4; transform: scale(0.9); }
+    }
+
+    #viewport-frame {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  </style>
+</head>
+
+<body class="bg-slate-900 text-slate-100 font-sans antialiased min-h-screen flex flex-col overflow-hidden select-none">
 
   <!-- Top Technical Evaluation Banner -->
   <div class="bg-slate-950 text-slate-300 px-4 py-2 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs font-mono shrink-0 z-50">
@@ -13,21 +81,761 @@
         <i data-lucide="radio" class="w-3.5 h-3.5"></i>
         <span>Simulate WebSocket Dispatch</span>
       </button>
+      <button onclick="triggerOpticalScan()" class="px-3 py-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded text-[11px] transition shadow flex items-center gap-1.5 active:scale-95">
+        <i data-lucide="scan-line" class="w-3.5 h-3.5"></i>
+        <span>Simulate TR-069 Optical Test</span>
+      </button>
       <span class="text-[10px] text-slate-400 font-sans hidden md:inline">© 2026 Feri Hidayat. All Rights Reserved.</span>
     </div>
   </div>
 
   <!-- Toast Notification Container -->
-  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none max-w-md"></div>    <!-- ========================================================= -->   <!-- TOP CONTROL BAR: Device Preview Switcher & Theme           -->   <!-- ========================================================= -->   <div class="h-12 bg-slate-950 border-b border-slate-800 px-4 flex items-center justify-between z-50 shrink-0 text-xs">          <!-- Left: Branding & Info -->     <div class="flex items-center gap-3">       <span class="flex items-center gap-1.5 font-bold text-white tracking-tight">         <span class="w-2 h-2 rounded-full bg-emerald-400 pulse-dot"></span>         FiberPulse <span class="text-brand-400 font-mono text-[10px]">REDESIGN v2</span>       </span>       <span class="text-slate-500 hidden sm:inline">â€¢</span>       <span class="text-slate-400 hidden sm:inline text-[11px]">Clean Enterprise â€¢ Ringkas â€¢ 100% Responsive</span>     </div>      <!-- Center: Interactive Device Viewport Simulator -->     <div class="flex items-center bg-slate-900 border border-slate-800 rounded-lg p-0.5 shadow-inner">       <button onclick="setViewport('desktop')" id="btn-vp-desktop" class="flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold bg-brand-900 text-white border border-brand-400/40 shadow-sm transition">         <i data-lucide="monitor" class="w-3.5 h-3.5 text-brand-300"></i>         <span class="hidden md:inline">Desktop (Full)</span>       </button>       <button onclick="setViewport('tablet')" id="btn-vp-tablet" class="flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold text-slate-400 hover:text-white transition">         <i data-lucide="tablet" class="w-3.5 h-3.5"></i>         <span class="hidden md:inline">Tablet (768px)</span>       </button>       <button onclick="setViewport('mobile')" id="btn-vp-mobile" class="flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold text-slate-400 hover:text-white transition">         <i data-lucide="smartphone" class="w-3.5 h-3.5"></i>         <span class="hidden md:inline">Mobile (390px)</span>       </button>     </div>      <!-- Right: Theme Switcher -->     <div class="flex items-center gap-2">       <button onclick="toggleTheme()" class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 hover:text-white transition text-xs">         <i data-lucide="sun-medium" class="w-3.5 h-3.5 text-amber-400"></i>         <span id="theme-label" class="font-medium text-[11px]">Light Mode</span>       </button>     </div>   </div>    <!-- ========================================================= -->   <!-- MAIN APP WRAPPER (Can be resized via viewport simulator)  -->   <!-- ========================================================= -->   <div class="flex-1 flex items-center justify-center p-0 md:p-3 overflow-hidden bg-slate-950">          <div id="viewport-frame" class="w-full h-full max-w-full bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex overflow-hidden rounded-none md:rounded-2xl border-0 md:border border-slate-200 dark:border-slate-800 shadow-2xl relative">              <!-- ======================================================= -->       <!-- SIDEBAR NAVIGATION (Desktop & Mobile Drawer)            -->       <!-- ======================================================= -->       <aside id="app-sidebar" class="w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between shrink-0 z-40 fixed md:static inset-y-0 left-0 -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out shadow-2xl md:shadow-none">                  <div>           <!-- Brand Logo Header -->           <div class="h-16 flex items-center justify-between px-5 border-b border-slate-200 dark:border-slate-800">             <div class="flex items-center gap-3">               <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-900 to-brand-400 flex items-center justify-center text-white font-bold text-sm shadow-md shadow-brand-900/20">                 <i data-lucide="wifi" class="w-5 h-5 text-white"></i>               </div>               <div>                 <div class="font-extrabold text-sm tracking-tight text-slate-900 dark:text-white leading-none">                   FiberPulse                 </div>                 <div class="text-[10px] font-mono text-slate-400 dark:text-slate-400 mt-0.5">Enterprise v2.4</div>               </div>             </div>              <!-- Mobile Close Sidebar Button -->             <button onclick="toggleMobileSidebar()" class="md:hidden text-slate-400 hover:text-slate-600 p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">               <i data-lucide="x" class="w-5 h-5"></i>             </button>           </div>            <!-- Concise Grouped Navigation Links -->           <nav class="p-3 space-y-5 overflow-y-auto max-h-[calc(100vh-140px)]">                          <!-- Group 1: Monitoring -->             <div>               <div class="px-3 mb-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">Monitoring</div>               <div class="space-y-0.5">                 <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold bg-brand-900 text-white dark:bg-brand-900 dark:text-brand-100 shadow-sm transition">                   <i data-lucide="layout-dashboard" class="w-4 h-4 text-brand-300"></i>                   <span>Dashboard</span>                 </button>                 <button onclick="switchTab('odp')" id="nav-odp" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 transition">                   <i data-lucide="map" class="w-4 h-4"></i>                   <span>Peta ODP (GIS)</span>                   <span class="ml-auto w-1.5 h-1.5 rounded-full bg-emerald-500"></span>                 </button>               </div>             </div>              <!-- Group 2: Inventaris & Gudang -->             <div>               <div class="px-3 mb-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">Inventaris</div>               <div class="space-y-0.5">                 <button onclick="switchTab('inventaris')" id="nav-inventaris" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 transition">                   <i data-lucide="package" class="w-4 h-4"></i>                   <span>Stok Gudang</span>                   <span class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold">142</span>                 </button>                 <button class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 transition">                   <i data-lucide="arrow-down-left" class="w-4 h-4"></i>                   <span>Aset Masuk</span>                 </button>                 <button class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 transition">                   <i data-lucide="arrow-up-right" class="w-4 h-4"></i>                   <span>Aset Keluar</span>                 </button>               </div>             </div>              <!-- Group 3: Operasional & Pelanggan -->             <div>               <div class="px-3 mb-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">Operasional</div>               <div class="space-y-0.5">                 <button onclick="switchTab('pelanggan')" id="nav-pelanggan" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 transition">                   <i data-lucide="users" class="w-4 h-4"></i>                   <span>Pelanggan</span>                 </button>                 <button class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 transition">                   <i data-lucide="shopping-cart" class="w-4 h-4"></i>                   <span>Order & PSB</span>                   <span class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 font-bold border border-amber-500/20">3</span>                 </button>                 <button class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 transition">                   <i data-lucide="wrench" class="w-4 h-4"></i>                   <span>Penugasan Teknisi</span>                 </button>               </div>             </div>              <!-- Group 4: Automasi -->             <div>               <div class="px-3 mb-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">AI & CS</div>               <div class="space-y-0.5">                 <button class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 transition">                   <i data-lucide="bot" class="w-4 h-4 text-purple-500"></i>                   <span>WhatsApp Bot AI</span>                   <span class="ml-auto text-[9px] font-mono px-1 py-0.2 rounded bg-purple-500/10 text-purple-500 font-bold">Auto</span>                 </button>               </div>             </div>            </nav>         </div>          <!-- User Profile Card -->         <div class="p-3 border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/30">           <div class="flex items-center gap-2.5 p-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">             <div class="w-7 h-7 rounded-lg bg-brand-900 text-white font-bold text-[11px] flex items-center justify-center">               AD             </div>             <div class="flex-1 min-w-0">               <div class="text-xs font-bold text-slate-800 dark:text-white truncate">Admin User</div>               <div class="text-[10px] text-emerald-500 font-mono flex items-center gap-1">                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Online               </div>             </div>             <button title="Logout" class="text-slate-400 hover:text-rose-500 p-1">               <i data-lucide="log-out" class="w-4 h-4"></i>             </button>           </div>         </div>        </aside>        <!-- Sidebar Backdrop for Mobile -->       <div id="sidebar-backdrop" onclick="toggleMobileSidebar()" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-30 hidden md:hidden"></div>        <!-- ======================================================= -->       <!-- MAIN VIEWPORT AREA                                      -->       <!-- ======================================================= -->       <div class="flex-1 flex flex-col min-w-0 overflow-hidden bg-slate-50 dark:bg-slate-950">                  <!-- Top Navbar -->         <header class="h-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-4 md:px-6 flex items-center justify-between z-20 shrink-0">                      <div class="flex items-center gap-3 flex-1 max-w-md">             <!-- Mobile Menu Toggle Button -->             <button onclick="toggleMobileSidebar()" class="md:hidden p-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition">               <i data-lucide="menu" class="w-5 h-5"></i>             </button>              <!-- Compact Search Bar -->             <div class="relative w-full">               <i data-lucide="search" class="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>               <input                  type="text"                  placeholder="Cari ID, Pelanggan, ODP, SN..."                  class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 focus:border-brand-500 dark:focus:border-brand-400 rounded-xl pl-9 pr-10 py-1.5 text-xs text-slate-800 dark:text-slate-200 placeholder-slate-400 focus:outline-none transition font-sans"               />               <kbd class="absolute right-2.5 top-1/2 -translate-y-1/2 text-[9px] font-mono px-1.5 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-400 hidden sm:inline">âŒ˜K</kbd>             </div>           </div>            <!-- Quick Action Buttons -->           <div class="flex items-center gap-2 sm:gap-3">             <button class="relative p-2 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition">               <i data-lucide="bell" class="w-4 h-4"></i>               <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-rose-500 rounded-full"></span>             </button>              <button onclick="openDrawer()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-brand-900 hover:bg-brand-800 text-white text-xs font-semibold shadow-sm transition active:scale-95">               <i data-lucide="plus" class="w-4 h-4"></i>               <span class="hidden sm:inline">Order Baru</span>             </button>           </div>          </header>          <!-- Main Content Scrollable Area -->         <main class="flex-1 overflow-y-auto p-4 md:p-6 space-y-6">                      <!-- ===================================================== -->           <!-- TAB 1: EXECUTIVE DASHBOARD                           -->           <!-- ===================================================== -->           <div id="tab-dashboard" class="tab-pane space-y-6">                          <!-- Page Title Bar (Ringkas & Clean) -->             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">               <div>                 <h1 class="text-lg md:text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">                   Executive Dashboard                 </h1>                 <p class="text-xs text-slate-500 dark:text-slate-400">Ringkasan metrik infrastruktur dan layanan pelanggan.</p>               </div>                <div class="flex items-center gap-2">                 <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-mono font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">                   <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>                   OLT Normal                 </span>                 <button class="p-1.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">                   <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>                 </button>               </div>             </div>              <!-- 5 KPI Cards (Fully Responsive Grid: 1 col on mobile, 2 on sm, 3 on lg, 5 on xl) -->             <div class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-3 md:gap-4">                              <!-- Card 1: Pelanggan Aktif -->               <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:border-brand-400 transition">                 <div class="flex items-center justify-between text-slate-500 text-xs mb-2">                   <span class="font-medium">Pelanggan</span>                   <i data-lucide="users" class="w-4 h-4 text-brand-500"></i>                 </div>                 <div class="text-xl md:text-2xl font-extrabold text-slate-900 dark:text-white font-mono">1,428</div>                 <div class="mt-1 text-[11px] text-emerald-600 dark:text-emerald-400 font-medium flex items-center gap-1">                   <i data-lucide="trending-up" class="w-3 h-3"></i> +12 bulan ini                 </div>               </div>                <!-- Card 2: Port ODP -->               <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:border-emerald-400 transition">                 <div class="flex items-center justify-between text-slate-500 text-xs mb-2">                   <span class="font-medium">Kapasitas ODP</span>                   <i data-lucide="network" class="w-4 h-4 text-emerald-500"></i>                 </div>                 <div class="text-xl md:text-2xl font-extrabold text-slate-900 dark:text-white font-mono">76.4%</div>                 <div class="mt-1 text-[11px] text-slate-500 font-mono">                   382 / 500 Port                 </div>               </div>                <!-- Card 3: Stok ONT -->               <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:border-indigo-400 transition">                 <div class="flex items-center justify-between text-slate-500 text-xs mb-2">                   <span class="font-medium">Stok Modem</span>                   <i data-lucide="hard-drive" class="w-4 h-4 text-indigo-500"></i>                 </div>                 <div class="text-xl md:text-2xl font-extrabold text-slate-900 dark:text-white font-mono">42 Unit</div>                 <div class="mt-1 text-[11px] text-slate-500">                   32 Baru â€¢ 10 Cabutan                 </div>               </div>                <!-- Card 4: Tugas Lapangan -->               <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:border-amber-400 transition">                 <div class="flex items-center justify-between text-slate-500 text-xs mb-2">                   <span class="font-medium">Tugas Teknisi</span>                   <i data-lucide="clipboard-list" class="w-4 h-4 text-amber-500"></i>                 </div>                 <div class="text-xl md:text-2xl font-extrabold text-slate-900 dark:text-white font-mono">8 Tiket</div>                 <div class="mt-1 text-[11px] text-amber-600 dark:text-amber-400 font-medium">                   3 On-Progress                 </div>               </div>                <!-- Card 5: Aset Rusak / RMA -->               <div class="col-span-2 sm:col-span-1 p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:border-rose-400 transition">                 <div class="flex items-center justify-between text-slate-500 text-xs mb-2">                   <span class="font-medium">Aset Rusak</span>                   <i data-lucide="alert-triangle" class="w-4 h-4 text-rose-500"></i>                 </div>                 <div class="text-xl md:text-2xl font-extrabold text-rose-600 dark:text-rose-400 font-mono">4 Unit</div>                 <div class="mt-1 text-[11px] text-slate-500">                   Butuh RMA / Ganti                 </div>               </div>              </div>              <!-- Visual Charts & Activity Split -->             <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">                              <!-- Bandwidth Chart (2 Cols) -->               <div class="lg:col-span-2 p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">                   <div>                     <h3 class="text-sm font-bold text-slate-900 dark:text-white">Throughput Bandwidth OLT</h3>                     <p class="text-xs text-slate-500">Trafik agregat gateway Mikrotik secara realtime.</p>                   </div>                   <div class="flex items-center gap-2 font-mono text-[11px]">                     <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold border border-emerald-500/20">RX: 482 Mbps</span>                     <span class="px-2 py-0.5 rounded bg-brand-500/10 text-brand-600 dark:text-brand-400 font-bold border border-brand-500/20">TX: 120 Mbps</span>                   </div>                 </div>                  <div class="h-60 w-full">                   <canvas id="liveChart"></canvas>                 </div>               </div>                <!-- Quick Action & Alert Panel (1 Col) -->               <div class="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">                 <div>                   <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">                     <i data-lucide="activity" class="w-4 h-4 text-amber-500"></i>                     Status ODP Penuh                   </h3>                    <div class="space-y-2.5">                     <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs">                       <div>                         <div class="font-bold text-slate-900 dark:text-white font-mono">ODP-KLP-08</div>                         <div class="text-[11px] text-slate-500">Klapanunggal RW 04</div>                       </div>                       <span class="px-2 py-0.5 rounded bg-rose-500/10 text-rose-600 dark:text-rose-400 font-bold font-mono text-[11px] border border-rose-500/20">                         8/8 FULL                       </span>                     </div>                      <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs">                       <div>                         <div class="font-bold text-slate-900 dark:text-white font-mono">ODP-BTL-02</div>                         <div class="text-[11px] text-slate-500">Bantar Gebang Blok A</div>                       </div>                       <span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 font-bold font-mono text-[11px] border border-amber-500/20">                         7/8 (87%)                       </span>                     </div>                   </div>                 </div>                  <button onclick="switchTab('odp')" class="mt-4 w-full py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-brand-900 hover:text-white text-slate-700 dark:text-slate-300 text-xs font-semibold transition text-center">                   Buka Pemetaan ODP â†’                 </button>               </div>              </div>            </div>             <!-- ===================================================== -->           <!-- TAB 2: PELANGGAN (CLEAN ENTERPRISE DATA TABLE)        -->           <!-- ===================================================== -->           <div id="tab-pelanggan" class="tab-pane hidden space-y-4">                          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">               <div>                 <h1 class="text-lg md:text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">                   Data Pelanggan                 </h1>                 <p class="text-xs text-slate-500 dark:text-slate-400">Total 1,428 pelanggan aktif & isolir.</p>               </div>                <div class="flex items-center gap-2">                 <button class="px-3 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100">                   Export CSV                 </button>                 <button onclick="openDrawer()" class="px-3 py-1.5 rounded-xl bg-brand-900 hover:bg-brand-800 text-white text-xs font-semibold shadow-sm">                   + Pelanggan                 </button>               </div>             </div>              <!-- Search & Filter Controls -->             <div class="p-3 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex flex-wrap gap-2.5 items-center justify-between">               <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">                 <input                    type="text"                    placeholder="Cari nama, no. hp, IP..."                    class="bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg px-3 py-1.5 text-xs text-slate-800 dark:text-slate-200 w-full sm:w-60 focus:outline-none focus:border-brand-500"                 />                 <select class="bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 text-xs rounded-lg px-2.5 py-1.5 focus:outline-none">                   <option>Semua Status</option>                   <option>Aktif</option>                   <option>Isolir</option>                 </select>               </div>               <div class="text-[11px] text-slate-500 font-mono">1 - 3 dari 1,428</div>             </div>              <!-- Responsive Table Container -->             <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden shadow-sm">               <div class="overflow-x-auto">                 <table class="w-full text-left text-xs border-collapse">                   <thead>                     <tr class="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/60 text-slate-500 font-mono text-[11px] uppercase">                       <th class="py-3 px-4">Pelanggan</th>                       <th class="py-3 px-4">Paket & IP</th>                       <th class="py-3 px-4">ODP</th>                       <th class="py-3 px-4">Rx Power</th>                       <th class="py-3 px-4">Status</th>                       <th class="py-3 px-4 text-right">Aksi</th>                     </tr>                   </thead>                   <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-800 dark:text-slate-200">                                          <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition">                       <td class="py-3 px-4">                         <div class="font-bold text-slate-900 dark:text-white cursor-pointer hover:text-brand-500" onclick="openDrawer()">Ahmad Syafii</div>                         <div class="text-[11px] text-slate-500 font-mono">0812-9988-1234</div>                       </td>                       <td class="py-3 px-4">                         <div class="font-medium">50 Mbps</div>                         <div class="text-[11px] text-slate-500 font-mono">10.20.14.88</div>                       </td>                       <td class="py-3 px-4 font-mono font-semibold text-brand-600 dark:text-brand-400">                         ODP-KLP-08 <span class="text-slate-400 font-normal">#4</span>                       </td>                       <td class="py-3 px-4 font-mono text-emerald-600 dark:text-emerald-400 font-semibold">                         -18.4 dBm                       </td>                       <td class="py-3 px-4">                         <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">                           AKTIF                         </span>                       </td>                       <td class="py-3 px-4 text-right">                         <button onclick="openDrawer()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-600 dark:text-slate-300">                           <i data-lucide="eye" class="w-3.5 h-3.5"></i>                         </button>                       </td>                     </tr>                      <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition">                       <td class="py-3 px-4">                         <div class="font-bold text-slate-900 dark:text-white cursor-pointer hover:text-brand-500" onclick="openDrawer()">Budi Santoso</div>                         <div class="text-[11px] text-slate-500 font-mono">0857-1122-3344</div>                       </td>                       <td class="py-3 px-4">                         <div class="font-medium">30 Mbps</div>                         <div class="text-[11px] text-slate-500 font-mono">10.20.14.92</div>                       </td>                       <td class="py-3 px-4 font-mono font-semibold text-brand-600 dark:text-brand-400">                         ODP-BTL-02 <span class="text-slate-400 font-normal">#7</span>                       </td>                       <td class="py-3 px-4 font-mono text-amber-600 dark:text-amber-400 font-semibold">                         -26.8 dBm âš ï¸                       </td>                       <td class="py-3 px-4">                         <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">                           AKTIF                         </span>                       </td>                       <td class="py-3 px-4 text-right">                         <button onclick="openDrawer()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-600 dark:text-slate-300">                           <i data-lucide="eye" class="w-3.5 h-3.5"></i>                         </button>                       </td>                     </tr>                      <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition bg-rose-500/[0.02]">                       <td class="py-3 px-4">                         <div class="font-bold text-slate-900 dark:text-white">Citra Kirana</div>                         <div class="text-[11px] text-slate-500 font-mono">0813-7766-5544</div>                       </td>                       <td class="py-3 px-4">                         <div class="font-medium">15 Mbps</div>                         <div class="text-[11px] text-rose-500 font-mono">Telat Bayar</div>                       </td>                       <td class="py-3 px-4 font-mono font-semibold text-slate-500">                         ODP-CGK-14 <span class="text-slate-400 font-normal">#2</span>                       </td>                       <td class="py-3 px-4 font-mono text-slate-500">                         -20.1 dBm                       </td>                       <td class="py-3 px-4">                         <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20">                           ISOLIR                         </span>                       </td>                       <td class="py-3 px-4 text-right">                         <button class="px-2 py-1 rounded-md bg-emerald-600 text-white text-[11px] font-bold">                           Buka                         </button>                       </td>                     </tr>                    </tbody>                 </table>               </div>             </div>            </div>            <!-- ===================================================== -->           <!-- TAB 3: ODP GIS                                       -->           <!-- ===================================================== -->           <div id="tab-odp" class="tab-pane hidden space-y-4">             <div class="flex items-center justify-between">               <div>                 <h1 class="text-lg md:text-xl font-extrabold text-slate-900 dark:text-white">Pemetaan ODP GIS</h1>                 <p class="text-xs text-slate-500">500 Box ODP terpasang.</p>               </div>               <button class="px-3 py-1.5 rounded-xl bg-emerald-600 text-white text-xs font-bold">                 + Titik ODP               </button>             </div>                          <div class="h-96 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-center text-slate-400 text-xs">               [Leaflet Interactive GIS Map Placeholder]             </div>           </div>            <!-- ===================================================== -->           <!-- TAB 4: INVENTARIS GUDANG                              -->           <!-- ===================================================== -->           <div id="tab-inventaris" class="tab-pane hidden space-y-4">             <div class="flex items-center justify-between">               <div>                 <h1 class="text-lg md:text-xl font-extrabold text-slate-900 dark:text-white">Stok Inventaris Gudang</h1>                 <p class="text-xs text-slate-500">Perangkat Modem ONT, Dropcore, & Aksesoris FO.</p>               </div>               <button class="px-3 py-1.5 rounded-xl bg-brand-900 text-white text-xs font-bold">                 + Scan Barcode               </button>             </div>              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">               <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">                 <div class="text-xs font-medium text-slate-500">Modem ZTE F609</div>                 <div class="text-2xl font-extrabold text-slate-900 dark:text-white font-mono mt-1">28 Unit</div>                 <div class="text-[11px] text-emerald-500 font-bold mt-1">Stok Aman</div>               </div>               <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">                 <div class="text-xs font-medium text-slate-500">Modem Huawei HG8245H5</div>                 <div class="text-2xl font-extrabold text-slate-900 dark:text-white font-mono mt-1">14 Unit</div>                 <div class="text-[11px] text-amber-500 font-bold mt-1">Stok Menipis</div>               </div>               <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">                 <div class="text-xs font-medium text-slate-500">Kabel Dropcore 1 Core (Roll)</div>                 <div class="text-2xl font-extrabold text-slate-900 dark:text-white font-mono mt-1">8 Roll (8 km)</div>                 <div class="text-[11px] text-emerald-500 font-bold mt-1">Stok Cukup</div>               </div>             </div>           </div>          </main>       </div>        <!-- ======================================================= -->       <!-- SLIDE DRAWER (Detail Pelanggan / Order)                 -->       <!-- ======================================================= -->       <div id="drawer" class="fixed inset-0 z-50 overflow-hidden hidden">         <div class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm" onclick="closeDrawer()"></div>         <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">           <div class="w-screen max-w-sm bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 p-5 flex flex-col justify-between shadow-2xl">             <div>               <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">                 <div class="font-bold text-slate-900 dark:text-white text-sm">Detail Pelanggan</div>                 <button onclick="closeDrawer()" class="p-1 rounded-lg text-slate-400 hover:text-slate-600">                   <i data-lucide="x" class="w-4 h-4"></i>                 </button>               </div>                <div class="mt-4 space-y-4 text-xs">                 <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-2">                   <div class="font-bold text-slate-900 dark:text-white">Ahmad Syafii</div>                   <div class="text-[11px] text-slate-500 font-mono">SN: ZTEGC89210AF â€¢ IP: 10.20.14.88</div>                   <div class="flex justify-between items-center pt-2 border-t border-slate-200 dark:border-slate-800">                     <span class="text-slate-500">Rx Power:</span>                     <span class="font-mono font-bold text-emerald-500">-18.42 dBm</span>                   </div>                 </div>                  <div class="space-y-2">                   <button class="w-full py-2 rounded-xl bg-brand-900 text-white font-bold">                     Reboot ONT (TR-069)                   </button>                   <button class="w-full py-2 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-600 font-bold">                     Isolir Layanan                   </button>                 </div>               </div>             </div>              <div class="text-center text-[10px] text-slate-400 font-mono">               FiberPulse Admin Console             </div>           </div>         </div>       </div>      </div>   </div>    <!-- Scripts -->   <script>     lucide.createIcons();      // Tab Switching     function switchTab(tabId) {       document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));       const target = document.getElementById('tab-' + tabId);       if (target) target.classList.remove('hidden');        document.querySelectorAll('.nav-btn').forEach(b => {         b.classList.remove('bg-brand-900', 'text-white', 'dark:bg-brand-900', 'dark:text-brand-100', 'shadow-sm');         b.classList.add('text-slate-600', 'dark:text-slate-400');       });        const activeBtn = document.getElementById('nav-' + tabId);       if (activeBtn) {         activeBtn.classList.add('bg-brand-900', 'text-white', 'dark:bg-brand-900', 'dark:text-brand-100', 'shadow-sm');         activeBtn.classList.remove('text-slate-600', 'dark:text-slate-400');       }        // Close mobile sidebar if open       const sb = document.getElementById('app-sidebar');       if (!sb.classList.contains('-translate-x-full')) {         toggleMobileSidebar();       }       lucide.createIcons();     }      // Viewport Simulator     function setViewport(mode) {       const frame = document.getElementById('viewport-frame');       const btnD = document.getElementById('btn-vp-desktop');       const btnT = document.getElementById('btn-vp-tablet');       const btnM = document.getElementById('btn-vp-mobile');        [btnD, btnT, btnM].forEach(b => {         b.classList.remove('bg-brand-900', 'text-white', 'border', 'border-brand-400/40', 'shadow-sm');         b.classList.add('text-slate-400');       });        if (mode === 'desktop') {         frame.style.width = '100%';         frame.style.height = '100%';         btnD.classList.add('bg-brand-900', 'text-white', 'border', 'border-brand-400/40', 'shadow-sm');         btnD.classList.remove('text-slate-400');       } else if (mode === 'tablet') {         frame.style.width = '768px';         frame.style.height = '95%';         btnT.classList.add('bg-brand-900', 'text-white', 'border', 'border-brand-400/40', 'shadow-sm');         btnT.classList.remove('text-slate-400');       } else if (mode === 'mobile') {         frame.style.width = '390px';         frame.style.height = '95%';         btnM.classList.add('bg-brand-900', 'text-white', 'border', 'border-brand-400/40', 'shadow-sm');         btnM.classList.remove('text-slate-400');       }     }      // Mobile Sidebar Drawer     function toggleMobileSidebar() {       const sb = document.getElementById('app-sidebar');       const bd = document.getElementById('sidebar-backdrop');       if (sb.classList.contains('-translate-x-full')) {         sb.classList.remove('-translate-x-full');         bd.classList.remove('hidden');       } else {         sb.classList.add('-translate-x-full');         bd.classList.add('hidden');       }     }      // Drawer     function openDrawer() {       document.getElementById('drawer').classList.remove('hidden');       lucide.createIcons();     }     function closeDrawer() {       document.getElementById('drawer').classList.add('hidden');     }      // Theme Toggle     function toggleTheme() {       const html = document.documentElement;       const label = document.getElementById('theme-label');       if (html.classList.contains('dark')) {         html.classList.remove('dark');         html.classList.add('light');         label.innerText = 'Dark Mode';       } else {         html.classList.remove('light');         html.classList.add('dark');         label.innerText = 'Light Mode';       }     }      // Chart.js Live Traffic Chart     const ctx = document.getElementById('liveChart').getContext('2d');     new Chart(ctx, {       type: 'line',       data: {         labels: ['14:00', '14:10', '14:20', '14:30', '14:40', '14:50'],         datasets: [           {             label: 'Download (Mbps)',             data: [310, 420, 390, 480, 460, 482],             borderColor: '#10B981',             backgroundColor: 'rgba(16, 185, 129, 0.08)',             borderWidth: 2,             tension: 0.35,             fill: true,             pointRadius: 0           },           {             label: 'Upload (Mbps)',             data: [80, 110, 95, 130, 115, 120],             borderColor: '#1E88C7',             backgroundColor: 'rgba(30, 136, 199, 0.05)',             borderWidth: 2,             tension: 0.35,             fill: true,             pointRadius: 0           }         ]       },       options: {         responsive: true,         maintainAspectRatio: false,         plugins: {           legend: { display: true, position: 'top', align: 'end', labels: { boxWidth: 10, font: { size: 10 } } }         },         scales: {           x: { grid: { display: false }, ticks: { font: { size: 9, family: 'JetBrains Mono' } } },           y: { grid: { color: 'rgba(148, 163, 184, 0.15)' }, ticks: { font: { size: 9, family: 'JetBrains Mono' } } }         }       }     });   </script>     function showToast(title, message, type = 'success') {
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none max-w-md"></div>
+
+  <!-- Top Control Bar: Device Preview Switcher & Theme -->
+  <div class="h-12 bg-slate-950 border-b border-slate-800 px-4 flex items-center justify-between z-50 shrink-0 text-xs">
+    <!-- Left: Branding & Status -->
+    <div class="flex items-center gap-3">
+      <span class="flex items-center gap-1.5 font-bold text-white tracking-tight">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 pulse-dot"></span>
+        FiberPulse <span class="text-brand-400 font-mono text-[10px]">Operations Console</span>
+      </span>
+      <span class="text-slate-500 hidden sm:inline">•</span>
+      <span class="text-slate-400 hidden sm:inline text-[11px]">FTTH Topology • GIS Mapping • Reverb WebSockets</span>
+    </div>
+
+    <!-- Center: Interactive Device Viewport Simulator -->
+    <div class="flex items-center bg-slate-900 border border-slate-800 rounded-lg p-0.5 shadow-inner">
+      <button onclick="setViewport('desktop')" id="btn-vp-desktop" class="flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold bg-brand-900 text-white border border-brand-400/40 shadow-sm transition">
+        <i data-lucide="monitor" class="w-3.5 h-3.5 text-brand-300"></i>
+        <span class="hidden md:inline">Desktop (Full)</span>
+      </button>
+      <button onclick="setViewport('tablet')" id="btn-vp-tablet" class="flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold text-slate-400 hover:text-white transition">
+        <i data-lucide="tablet" class="w-3.5 h-3.5"></i>
+        <span class="hidden md:inline">Tablet (768px)</span>
+      </button>
+      <button onclick="setViewport('mobile')" id="btn-vp-mobile" class="flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold text-slate-400 hover:text-white transition">
+        <i data-lucide="smartphone" class="w-3.5 h-3.5"></i>
+        <span class="hidden md:inline">Mobile (390px)</span>
+      </button>
+    </div>
+
+    <!-- Right: Theme Switcher -->
+    <div class="flex items-center gap-2">
+      <button onclick="toggleTheme()" class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 hover:text-white transition text-xs">
+        <i data-lucide="sun-medium" class="w-3.5 h-3.5 text-amber-400"></i>
+        <span id="theme-label" class="font-medium text-[11px]">Dark Mode</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Viewport Container -->
+  <div class="flex-1 flex items-center justify-center p-0 md:p-3 overflow-hidden bg-slate-950">
+    <div id="viewport-frame" class="w-full h-full max-w-full bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex overflow-hidden rounded-none md:rounded-2xl border-0 md:border border-slate-200 dark:border-slate-800 shadow-2xl relative">
+
+      <!-- Sidebar Navigation -->
+      <aside id="app-sidebar" class="w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between shrink-0 z-40 fixed md:static inset-y-0 left-0 -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out shadow-2xl md:shadow-none">
+        <div>
+          <!-- Brand Logo Header -->
+          <div class="h-16 flex items-center justify-between px-5 border-b border-slate-200 dark:border-slate-800">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-900 to-brand-400 flex items-center justify-center text-white font-bold text-sm shadow-md shadow-brand-900/20">
+                <i data-lucide="network" class="w-5 h-5 text-white"></i>
+              </div>
+              <div>
+                <div class="font-extrabold text-sm tracking-tight text-slate-900 dark:text-white leading-none">
+                  FiberPulse
+                </div>
+                <div class="text-[10px] font-mono text-slate-400 dark:text-slate-400 mt-0.5">Enterprise v2.4</div>
+              </div>
+            </div>
+
+            <!-- Mobile Close Sidebar Button -->
+            <button onclick="toggleMobileSidebar()" class="md:hidden text-slate-400 hover:text-slate-600 p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
+              <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+          </div>
+
+          <!-- Grouped Navigation Links -->
+          <nav class="p-3 space-y-5 overflow-y-auto max-h-[calc(100vh-140px)]">
+            <!-- Group 1: Monitoring -->
+            <div>
+              <div class="px-3 mb-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">Monitoring & Topology</div>
+              <div class="space-y-0.5">
+                <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold bg-brand-900 text-white dark:bg-brand-900 dark:text-brand-100 shadow-sm transition">
+                  <i data-lucide="layout-dashboard" class="w-4 h-4 text-brand-300"></i>
+                  <span>Operations Center</span>
+                </button>
+                <button onclick="switchTab('odp')" id="nav-odp" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 transition">
+                  <i data-lucide="map" class="w-4 h-4"></i>
+                  <span>Geospatial ODP Map</span>
+                  <span class="ml-auto w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Group 2: Hardware & Inventory -->
+            <div>
+              <div class="px-3 mb-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">Hardware & Inventory</div>
+              <div class="space-y-0.5">
+                <button onclick="switchTab('inventaris')" id="nav-inventaris" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 transition">
+                  <i data-lucide="package" class="w-4 h-4"></i>
+                  <span>Warehouse Inventory</span>
+                  <span class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold">142</span>
+                </button>
+                <button class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 transition">
+                  <i data-lucide="arrow-down-left" class="w-4 h-4"></i>
+                  <span>Inbound Shipments</span>
+                </button>
+                <button class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 transition">
+                  <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                  <span>Field Deployments</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Group 3: Operations & Dispatch -->
+            <div>
+              <div class="px-3 mb-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">Field Fleet & Dispatch</div>
+              <div class="space-y-0.5">
+                <button onclick="switchTab('pelanggan')" id="nav-pelanggan" class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 transition">
+                  <i data-lucide="users" class="w-4 h-4"></i>
+                  <span>Subscribers</span>
+                </button>
+                <button class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 transition">
+                  <i data-lucide="clipboard-check" class="w-4 h-4"></i>
+                  <span>Work Orders (PSB)</span>
+                  <span class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 font-bold border border-amber-500/20">3</span>
+                </button>
+                <button class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 transition">
+                  <i data-lucide="wrench" class="w-4 h-4"></i>
+                  <span>Technician Roster</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Group 4: Network Automation -->
+            <div>
+              <div class="px-3 mb-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">Automation & TR-069</div>
+              <div class="space-y-0.5">
+                <button class="nav-btn w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 transition">
+                  <i data-lucide="cpu" class="w-4 h-4 text-brand-400"></i>
+                  <span>GenieACS TR-069 Server</span>
+                  <span class="ml-auto text-[9px] font-mono px-1 py-0.2 rounded bg-emerald-500/10 text-emerald-500 font-bold">Online</span>
+                </button>
+              </div>
+            </div>
+          </nav>
+        </div>
+
+        <!-- User Profile Card -->
+        <div class="p-3 border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/30">
+          <div class="flex items-center gap-2.5 p-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+            <div class="w-7 h-7 rounded-lg bg-brand-900 text-white font-bold text-[11px] flex items-center justify-center">
+              NC
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="text-xs font-bold text-slate-800 dark:text-white truncate">NOC Supervisor</div>
+              <div class="text-[10px] text-emerald-500 font-mono flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Reverb Connected
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Sidebar Backdrop for Mobile -->
+      <div id="sidebar-backdrop" onclick="toggleMobileSidebar()" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-30 hidden md:hidden"></div>
+
+      <!-- Main Viewport Area -->
+      <div class="flex-1 flex flex-col min-w-0 overflow-hidden bg-slate-50 dark:bg-slate-950">
+
+        <!-- Top Navbar -->
+        <header class="h-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-4 md:px-6 flex items-center justify-between z-20 shrink-0">
+          <div class="flex items-center gap-3 flex-1 max-w-md">
+            <!-- Mobile Menu Toggle Button -->
+            <button onclick="toggleMobileSidebar()" class="md:hidden p-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+              <i data-lucide="menu" class="w-5 h-5"></i>
+            </button>
+
+            <!-- Search Bar -->
+            <div class="relative w-full">
+              <i data-lucide="search" class="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+              <input 
+                type="text" 
+                placeholder="Search subscriber, ODP, ONT Serial, or IP..." 
+                value="ODP-KLP-08"
+                class="w-full bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 focus:border-brand-500 dark:focus:border-brand-400 rounded-xl pl-9 pr-10 py-1.5 text-xs text-slate-800 dark:text-slate-200 placeholder-slate-400 focus:outline-none transition font-sans"
+              />
+              <kbd class="absolute right-2.5 top-1/2 -translate-y-1/2 text-[9px] font-mono px-1.5 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-400 hidden sm:inline">Ctrl+K</kbd>
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="flex items-center gap-2 sm:gap-3">
+            <button class="relative p-2 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+              <i data-lucide="bell" class="w-4 h-4"></i>
+              <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-rose-500 rounded-full"></span>
+            </button>
+            <button onclick="openDrawer()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-brand-900 hover:bg-brand-800 text-white text-xs font-semibold shadow-sm transition active:scale-95">
+              <i data-lucide="plus" class="w-4 h-4"></i>
+              <span class="hidden sm:inline">New Work Order</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- Main Content Scroll Area -->
+        <main class="flex-1 overflow-y-auto p-4 md:p-6 space-y-6">
+
+          <!-- TAB 1: OPERATIONS DASHBOARD -->
+          <div id="tab-dashboard" class="tab-pane space-y-6">
+            <!-- Header -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                <h1 class="text-lg md:text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                  Operations Command Center
+                </h1>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Real-time FTTH infrastructure telemetry, optical attenuation, and fleet dispatch.</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-mono font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                  OLT Core Gateway Normal
+                </span>
+                <button class="p-1.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs">
+                  <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- 5 KPI Cards -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-3 md:gap-4">
+              <!-- Active Subscribers -->
+              <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:border-brand-400 transition">
+                <div class="flex items-center justify-between text-slate-500 text-xs mb-2">
+                  <span class="font-medium">Active Subscribers</span>
+                  <i data-lucide="users" class="w-4 h-4 text-brand-500"></i>
+                </div>
+                <div class="text-xl md:text-2xl font-extrabold text-slate-900 dark:text-white font-mono">1,428</div>
+                <div class="mt-1 text-[11px] text-emerald-600 dark:text-emerald-400 font-medium flex items-center gap-1">
+                  <i data-lucide="trending-up" class="w-3 h-3"></i> +12 this month
+                </div>
+              </div>
+
+              <!-- ODP Port Capacity -->
+              <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:border-emerald-400 transition">
+                <div class="flex items-center justify-between text-slate-500 text-xs mb-2">
+                  <span class="font-medium">ODP Utilization</span>
+                  <i data-lucide="network" class="w-4 h-4 text-emerald-500"></i>
+                </div>
+                <div class="text-xl md:text-2xl font-extrabold text-slate-900 dark:text-white font-mono">76.4%</div>
+                <div class="mt-1 text-[11px] text-slate-500 font-mono">
+                  382 / 500 Ports Utilized
+                </div>
+              </div>
+
+              <!-- ONT Modem Stock -->
+              <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:border-indigo-400 transition">
+                <div class="flex items-center justify-between text-slate-500 text-xs mb-2">
+                  <span class="font-medium">ONT Stock</span>
+                  <i data-lucide="hard-drive" class="w-4 h-4 text-indigo-500"></i>
+                </div>
+                <div class="text-xl md:text-2xl font-extrabold text-slate-900 dark:text-white font-mono">42 Units</div>
+                <div class="mt-1 text-[11px] text-slate-500">
+                  32 New • 10 Refurbished
+                </div>
+              </div>
+
+              <!-- Field Work Orders -->
+              <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:border-amber-400 transition">
+                <div class="flex items-center justify-between text-slate-500 text-xs mb-2">
+                  <span class="font-medium">Work Orders</span>
+                  <i data-lucide="clipboard-list" class="w-4 h-4 text-amber-500"></i>
+                </div>
+                <div class="text-xl md:text-2xl font-extrabold text-slate-900 dark:text-white font-mono">8 Open</div>
+                <div class="mt-1 text-[11px] text-amber-600 dark:text-amber-400 font-medium">
+                  3 In-Progress
+                </div>
+              </div>
+
+              <!-- Faulty / RMA Units -->
+              <div class="col-span-2 sm:col-span-1 p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:border-rose-400 transition">
+                <div class="flex items-center justify-between text-slate-500 text-xs mb-2">
+                  <span class="font-medium">Faulty / RMA</span>
+                  <i data-lucide="alert-triangle" class="w-4 h-4 text-rose-500"></i>
+                </div>
+                <div class="text-xl md:text-2xl font-extrabold text-rose-600 dark:text-rose-400 font-mono">4 Units</div>
+                <div class="mt-1 text-[11px] text-slate-500">
+                  Vendor RMA Pending
+                </div>
+              </div>
+            </div>
+
+            <!-- Visual Charts & Alerts Split -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+              <!-- Bandwidth Chart (2 Cols) -->
+              <div class="lg:col-span-2 p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+                  <div>
+                    <h3 class="text-sm font-bold text-slate-900 dark:text-white">OLT Core Gateway Throughput</h3>
+                    <p class="text-xs text-slate-500">Live aggregate upstream & downstream bandwidth utilization.</p>
+                  </div>
+                  <div class="flex items-center gap-2 font-mono text-[11px]">
+                    <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold border border-emerald-500/20">Downlink: 482 Mbps</span>
+                    <span class="px-2 py-0.5 rounded bg-brand-500/10 text-brand-600 dark:text-brand-400 font-bold border border-brand-500/20">Uplink: 120 Mbps</span>
+                  </div>
+                </div>
+
+                <div class="h-60 w-full">
+                  <canvas id="liveChart"></canvas>
+                </div>
+              </div>
+
+              <!-- Critical Capacity Alerts (1 Col) -->
+              <div class="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+                <div>
+                  <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+                    <i data-lucide="alert-circle" class="w-4 h-4 text-amber-500"></i>
+                    Capacity Critical ODP Splitters
+                  </h3>
+
+                  <div class="space-y-2.5">
+                    <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs">
+                      <div>
+                        <div class="font-bold text-slate-900 dark:text-white font-mono">ODP-KLP-08</div>
+                        <div class="text-[11px] text-slate-500">Sector 4 Node (Substation A)</div>
+                      </div>
+                      <span class="px-2 py-0.5 rounded bg-rose-500/10 text-rose-600 dark:text-rose-400 font-bold font-mono text-[11px] border border-rose-500/20">
+                        8/8 FULL
+                      </span>
+                    </div>
+
+                    <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs">
+                      <div>
+                        <div class="font-bold text-slate-900 dark:text-white font-mono">ODP-BTL-02</div>
+                        <div class="text-[11px] text-slate-500">Central Business Loop Block 7</div>
+                      </div>
+                      <span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 font-bold font-mono text-[11px] border border-amber-500/20">
+                        7/8 (87.5%)
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <button onclick="switchTab('odp')" class="mt-4 w-full py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-brand-900 hover:text-white text-slate-700 dark:text-slate-300 text-xs font-semibold transition text-center">
+                  Open Geospatial ODP Canvas &rarr;
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 2: SUBSCRIBERS TABLE -->
+          <div id="tab-pelanggan" class="tab-pane hidden space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <h1 class="text-lg md:text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                  Subscriber Provisioning Directory
+                </h1>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Displaying 1,428 active optical terminal links across 500 distribution points.</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <button class="px-3 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100">
+                  Export CSV
+                </button>
+                <button onclick="openDrawer()" class="px-3 py-1.5 rounded-xl bg-brand-900 hover:bg-brand-800 text-white text-xs font-semibold shadow-sm">
+                  + Add Connection
+                </button>
+              </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="p-3 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex flex-wrap gap-2.5 items-center justify-between">
+              <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                <input 
+                  type="text" 
+                  placeholder="Filter name, account, IP, or ODP..." 
+                  class="bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg px-3 py-1.5 text-xs text-slate-800 dark:text-slate-200 w-full sm:w-60 focus:outline-none focus:border-brand-500"
+                />
+                <select class="bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 text-xs rounded-lg px-2.5 py-1.5 focus:outline-none">
+                  <option>All Network Statuses</option>
+                  <option>Active</option>
+                  <option>Suspended</option>
+                </select>
+              </div>
+              <div class="text-[11px] text-slate-500 font-mono">Showing 1 - 3 of 1,428</div>
+            </div>
+
+            <!-- Table -->
+            <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden shadow-sm">
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs border-collapse">
+                  <thead>
+                    <tr class="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/60 text-slate-500 font-mono text-[11px] uppercase">
+                      <th class="py-3 px-4">Subscriber</th>
+                      <th class="py-3 px-4">Plan & IP</th>
+                      <th class="py-3 px-4">Assigned ODP</th>
+                      <th class="py-3 px-4">Rx Power</th>
+                      <th class="py-3 px-4">Status</th>
+                      <th class="py-3 px-4 text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-800 dark:text-slate-200">
+                    <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition">
+                      <td class="py-3 px-4">
+                        <div class="font-bold text-slate-900 dark:text-white cursor-pointer hover:text-brand-500" onclick="openDrawer()">Marcus Vance</div>
+                        <div class="text-[11px] text-slate-500 font-mono">+1 (555) 439-1092</div>
+                      </td>
+                      <td class="py-3 px-4">
+                        <div class="font-medium">Fiber Pro 100 Mbps</div>
+                        <div class="text-[11px] text-slate-500 font-mono">10.24.12.88</div>
+                      </td>
+                      <td class="py-3 px-4 font-mono font-semibold text-brand-600 dark:text-brand-400">
+                        ODP-KLP-08 <span class="text-slate-400 font-normal">#Port 4</span>
+                      </td>
+                      <td class="py-3 px-4 font-mono text-emerald-600 dark:text-emerald-400 font-semibold">
+                        -18.42 dBm (Optimal)
+                      </td>
+                      <td class="py-3 px-4">
+                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                          ACTIVE
+                        </span>
+                      </td>
+                      <td class="py-3 px-4 text-right">
+                        <button onclick="openDrawer()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-600 dark:text-slate-300">
+                          <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5"></i>
+                        </button>
+                      </td>
+                    </tr>
+
+                    <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition">
+                      <td class="py-3 px-4">
+                        <div class="font-bold text-slate-900 dark:text-white cursor-pointer hover:text-brand-500" onclick="openDrawer()">Elena Rostova</div>
+                        <div class="text-[11px] text-slate-500 font-mono">+1 (555) 902-8812</div>
+                      </td>
+                      <td class="py-3 px-4">
+                        <div class="font-medium">Gigabit Ultra 1 Gbps</div>
+                        <div class="text-[11px] text-slate-500 font-mono">10.24.12.92</div>
+                      </td>
+                      <td class="py-3 px-4 font-mono font-semibold text-brand-600 dark:text-brand-400">
+                        ODP-BTL-02 <span class="text-slate-400 font-normal">#Port 7</span>
+                      </td>
+                      <td class="py-3 px-4 font-mono text-amber-600 dark:text-amber-400 font-semibold">
+                        -26.85 dBm (Marginal)
+                      </td>
+                      <td class="py-3 px-4">
+                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                          ACTIVE
+                        </span>
+                      </td>
+                      <td class="py-3 px-4 text-right">
+                        <button onclick="openDrawer()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-600 dark:text-slate-300">
+                          <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5"></i>
+                        </button>
+                      </td>
+                    </tr>
+
+                    <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition bg-rose-500/[0.02]">
+                      <td class="py-3 px-4">
+                        <div class="font-bold text-slate-900 dark:text-white">David Miller</div>
+                        <div class="text-[11px] text-slate-500 font-mono">+1 (555) 234-5678</div>
+                      </td>
+                      <td class="py-3 px-4">
+                        <div class="font-medium">Starter 50 Mbps</div>
+                        <div class="text-[11px] text-rose-500 font-mono">Past Due (CoA Isolated)</div>
+                      </td>
+                      <td class="py-3 px-4 font-mono font-semibold text-slate-500">
+                        ODP-CGK-14 <span class="text-slate-400 font-normal">#Port 2</span>
+                      </td>
+                      <td class="py-3 px-4 font-mono text-slate-500">
+                        -20.10 dBm
+                      </td>
+                      <td class="py-3 px-4">
+                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20">
+                          SUSPENDED
+                        </span>
+                      </td>
+                      <td class="py-3 px-4 text-right">
+                        <button onclick="openDrawer()" class="px-2 py-1 rounded-md bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-bold">
+                          Inspect
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 3: ODP GIS CANVAS -->
+          <div id="tab-odp" class="tab-pane hidden space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h1 class="text-lg md:text-xl font-extrabold text-slate-900 dark:text-white">Geospatial ODP Map Canvas</h1>
+                <p class="text-xs text-slate-500">Interactive GIS distribution network covering 500 installed optical splitters.</p>
+              </div>
+              <button onclick="triggerSimulatedDispatch()" class="px-3 py-1.5 rounded-xl bg-brand-900 text-white text-xs font-bold">
+                + Provision New Point
+              </button>
+            </div>
+
+            <div class="h-96 rounded-2xl bg-slate-900 border border-slate-800 p-4 relative overflow-hidden flex flex-col justify-between">
+              <!-- Simulated Map Canvas Overlay -->
+              <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:16px_16px]"></div>
+              <div class="relative z-10 flex items-center justify-between">
+                <div class="bg-slate-950/90 border border-slate-700 px-3 py-1.5 rounded-lg text-xs font-mono">
+                  <span class="text-slate-400">GIS Coordinates:</span> <span class="text-emerald-400 font-bold">-6.2088° S, 106.8456° E</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="px-2 py-1 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded text-[11px] font-mono">All Feeder Trunks Up</span>
+                </div>
+              </div>
+
+              <div class="relative z-10 flex items-center justify-center">
+                <div class="bg-slate-950/90 border border-brand-500/40 p-5 rounded-2xl max-w-md text-center shadow-2xl">
+                  <i data-lucide="map-pin" class="w-8 h-8 text-brand-400 mx-auto mb-2"></i>
+                  <h4 class="font-bold text-white text-sm">Interactive Leaflet GIS Visualizer</h4>
+                  <p class="text-slate-400 text-xs mt-1">Full ODP port state matrix, feeder fiber route polylines, and field technician GPS pins are rendered in production via Leaflet & OpenStreetMap tiles.</p>
+                </div>
+              </div>
+
+              <div class="relative z-10 flex justify-end">
+                <button onclick="triggerOpticalScan()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-lg text-xs font-mono text-white flex items-center gap-1.5">
+                  <i data-lucide="activity" class="w-3.5 h-3.5 text-emerald-400"></i>
+                  Query Optical Signal Across Cluster
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 4: WAREHOUSE HARDWARE INVENTORY -->
+          <div id="tab-inventaris" class="tab-pane hidden space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h1 class="text-lg md:text-xl font-extrabold text-slate-900 dark:text-white">Warehouse Hardware Inventory</h1>
+                <p class="text-xs text-slate-500">Optical Network Terminals (ONT), Drop Cable Spools, and Passive Splitters.</p>
+              </div>
+              <button class="px-3 py-1.5 rounded-xl bg-brand-900 text-white text-xs font-bold">
+                + Barcode Ingestion
+              </button>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                <div class="text-xs font-medium text-slate-500">Dual-Band GPON ONT (ZTE)</div>
+                <div class="text-2xl font-extrabold text-slate-900 dark:text-white font-mono mt-1">28 Units</div>
+                <div class="text-[11px] text-emerald-500 font-bold mt-1">Stock Level: Optimal</div>
+              </div>
+              <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                <div class="text-xs font-medium text-slate-500">Gigabit WiFi 6 ONT (Huawei)</div>
+                <div class="text-2xl font-extrabold text-slate-900 dark:text-white font-mono mt-1">14 Units</div>
+                <div class="text-[11px] text-amber-500 font-bold mt-1">Stock Level: Low (Reorder)</div>
+              </div>
+              <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                <div class="text-xs font-medium text-slate-500">1-Core FTTH Drop Cable Spools</div>
+                <div class="text-2xl font-extrabold text-slate-900 dark:text-white font-mono mt-1">8 Spools (8 km)</div>
+                <div class="text-[11px] text-emerald-500 font-bold mt-1">Stock Level: Sufficient</div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+
+      <!-- Slide Drawer (Subscriber Diagnostics & TR-069) -->
+      <div id="drawer" class="fixed inset-0 z-50 overflow-hidden hidden">
+        <div class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm" onclick="closeDrawer()"></div>
+        <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+          <div class="w-screen max-w-sm bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 p-5 flex flex-col justify-between shadow-2xl">
+            <div>
+              <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+                <div class="font-bold text-slate-900 dark:text-white text-sm">Subscriber Diagnostics</div>
+                <button onclick="closeDrawer()" class="p-1 rounded-lg text-slate-400 hover:text-slate-600">
+                  <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+              </div>
+
+              <div class="mt-4 space-y-4 text-xs">
+                <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-2">
+                  <div class="font-bold text-slate-900 dark:text-white">Marcus Vance</div>
+                  <div class="text-[11px] text-slate-500 font-mono">SN: ZTEGC89210AF • IP: 10.24.12.88</div>
+                  <div class="flex justify-between items-center pt-2 border-t border-slate-200 dark:border-slate-800">
+                    <span class="text-slate-500">Optical Rx Power:</span>
+                    <span class="font-mono font-bold text-emerald-500">-18.42 dBm</span>
+                  </div>
+                </div>
+
+                <div class="space-y-2">
+                  <button onclick="triggerOpticalScan()" class="w-full py-2 rounded-xl bg-brand-900 hover:bg-brand-800 text-white font-bold transition">
+                    Reboot ONT (TR-069 ACS RPC)
+                  </button>
+                  <button onclick="triggerSimulatedDispatch()" class="w-full py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-bold transition">
+                    Dispatch Field Engineer
+                  </button>
+                  <button onclick="showToast('Radius Disconnect (CoA)', 'Sent packet-of-disconnect to Mikrotik Bras gateway. Port suspended successfully.', 'warning')" class="w-full py-2 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-600 font-bold hover:bg-rose-500/20 transition">
+                    Suspend Subscriber Port
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="text-center text-[10px] text-slate-400 font-mono">
+              FiberPulse Enterprise Admin Console
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    lucide.createIcons();
+
+    // Tab Switching
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
+      const target = document.getElementById('tab-' + tabId);
+      if (target) target.classList.remove('hidden');
+
+      document.querySelectorAll('.nav-btn').forEach(b => {
+        b.classList.remove('bg-brand-900', 'text-white', 'dark:bg-brand-900', 'dark:text-brand-100', 'shadow-sm');
+        b.classList.add('text-slate-600', 'dark:text-slate-400');
+      });
+
+      const activeBtn = document.getElementById('nav-' + tabId);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-brand-900', 'text-white', 'dark:bg-brand-900', 'dark:text-brand-100', 'shadow-sm');
+        activeBtn.classList.remove('text-slate-600', 'dark:text-slate-400');
+      }
+
+      const sb = document.getElementById('app-sidebar');
+      if (!sb.classList.contains('-translate-x-full')) {
+        toggleMobileSidebar();
+      }
+      lucide.createIcons();
+    }
+
+    // Viewport Simulator
+    function setViewport(mode) {
+      const frame = document.getElementById('viewport-frame');
+      const btnD = document.getElementById('btn-vp-desktop');
+      const btnT = document.getElementById('btn-vp-tablet');
+      const btnM = document.getElementById('btn-vp-mobile');
+
+      [btnD, btnT, btnM].forEach(b => {
+        b.classList.remove('bg-brand-900', 'text-white', 'border', 'border-brand-400/40', 'shadow-sm');
+        b.classList.add('text-slate-400');
+      });
+
+      if (mode === 'desktop') {
+        frame.style.width = '100%';
+        frame.style.height = '100%';
+        btnD.classList.add('bg-brand-900', 'text-white', 'border', 'border-brand-400/40', 'shadow-sm');
+        btnD.classList.remove('text-slate-400');
+      } else if (mode === 'tablet') {
+        frame.style.width = '768px';
+        frame.style.height = '95%';
+        btnT.classList.add('bg-brand-900', 'text-white', 'border', 'border-brand-400/40', 'shadow-sm');
+        btnT.classList.remove('text-slate-400');
+      } else if (mode === 'mobile') {
+        frame.style.width = '390px';
+        frame.style.height = '95%';
+        btnM.classList.add('bg-brand-900', 'text-white', 'border', 'border-brand-400/40', 'shadow-sm');
+        btnM.classList.remove('text-slate-400');
+      }
+    }
+
+    // Mobile Drawer
+    function toggleMobileSidebar() {
+      const sb = document.getElementById('app-sidebar');
+      const bd = document.getElementById('sidebar-backdrop');
+      if (sb.classList.contains('-translate-x-full')) {
+        sb.classList.remove('-translate-x-full');
+        bd.classList.remove('hidden');
+      } else {
+        sb.classList.add('-translate-x-full');
+        bd.classList.add('hidden');
+      }
+    }
+
+    // Slide Drawer
+    function openDrawer() {
+      document.getElementById('drawer').classList.remove('hidden');
+      lucide.createIcons();
+    }
+    function closeDrawer() {
+      document.getElementById('drawer').classList.add('hidden');
+    }
+
+    // Dark / Light Theme Toggle
+    function toggleTheme() {
+      const html = document.documentElement;
+      const label = document.getElementById('theme-label');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        html.classList.add('light');
+        label.innerText = 'Dark Mode';
+      } else {
+        html.classList.remove('light');
+        html.classList.add('dark');
+        label.innerText = 'Light Mode';
+      }
+    }
+
+    // Live Traffic Chart
+    const ctx = document.getElementById('liveChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['14:00', '14:10', '14:20', '14:30', '14:40', '14:50'],
+        datasets: [
+          {
+            label: 'Downlink (Mbps)',
+            data: [310, 420, 390, 480, 460, 482],
+            borderColor: '#10B981',
+            backgroundColor: 'rgba(16, 185, 129, 0.08)',
+            borderWidth: 2,
+            tension: 0.35,
+            fill: true,
+            pointRadius: 0
+          },
+          {
+            label: 'Uplink (Mbps)',
+            data: [80, 110, 95, 130, 115, 120],
+            borderColor: '#1E88C7',
+            backgroundColor: 'rgba(30, 136, 199, 0.05)',
+            borderWidth: 2,
+            tension: 0.35,
+            fill: true,
+            pointRadius: 0
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: true, position: 'top', align: 'end', labels: { boxWidth: 10, font: { size: 10 } } }
+        },
+        scales: {
+          x: { grid: { display: false }, ticks: { font: { size: 9, family: 'JetBrains Mono' } } },
+          y: { grid: { color: 'rgba(148, 163, 184, 0.15)' }, ticks: { font: { size: 9, family: 'JetBrains Mono' } } }
+        }
+      }
+    });
+
+    // Toast Notification System
+    function showToast(title, message, type = 'success') {
       const container = document.getElementById('toast-container');
       const toast = document.createElement('div');
-      const borderCol = 'border-brand-400 bg-slate-950 text-white';
-      const iconCol = 'text-brand-400';
-      
+      const borderCol = type === 'warning' ? 'border-amber-400 bg-slate-950 text-white' : 'border-brand-400 bg-slate-950 text-white';
+      const iconCol = type === 'warning' ? 'text-amber-400' : 'text-brand-400';
+      const iconName = type === 'warning' ? 'alert-triangle' : 'radio';
+
       toast.className = `p-4 rounded-xl border shadow-2xl transition-all transform duration-300 translate-y-2 opacity-0 font-sans pointer-events-auto ${borderCol}`;
       toast.innerHTML = `
         <div class="flex items-start gap-3">
-          <i data-lucide="radio" class="w-5 h-5 ${iconCol} shrink-0 mt-0.5"></i>
+          <i data-lucide="${iconName}" class="w-5 h-5 ${iconCol} shrink-0 mt-0.5"></i>
           <div>
             <div class="font-bold text-xs ${iconCol}">${title}</div>
             <div class="text-[11px] text-slate-300 mt-0.5 leading-relaxed font-mono">${message}</div>
@@ -36,7 +844,7 @@
       `;
       container.appendChild(toast);
       lucide.createIcons();
-      
+
       setTimeout(() => {
         toast.classList.remove('translate-y-2', 'opacity-0');
       }, 50);
@@ -50,8 +858,16 @@
     function triggerSimulatedDispatch() {
       showToast(
         'Laravel Reverb WebSocket Broadcast [Channel: task-dispatch]',
-        'Event TaskAssigned: Work Order #WO-8910 (New Subscriber Fiber Installation at ODP-KLP-08 Port 4) pushed to technician mobile PWA with sub-second latency.'
+        'Event TaskAssigned: Work Order #WO-8910 (Fiber Splicing & Optical Verification at ODP-KLP-08 Port 4) pushed to technician mobile PWA with 42ms latency.'
+      );
+    }
+
+    function triggerOpticalScan() {
+      showToast(
+        'TR-069 ACS RPC [Device.Optical.Interface.1]',
+        'Transceiver Telemetry: Tx Power: +2.18 dBm, Rx Power: -18.42 dBm, Bias Current: 14.2 mA. Link attenuation within ITU-T G.984 class B+ specifications.'
       );
     }
   </script>
-</body> </html>
+</body>
+</html>
