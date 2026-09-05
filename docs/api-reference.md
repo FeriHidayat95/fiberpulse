@@ -1,10 +1,10 @@
-﻿# FiberPulse REST API & WebSocket Reference
+# FiberPulse REST API & WebSocket Reference
 
 This document outlines the core HTTP API endpoints and WebSocket channels for FiberPulse.
 
 ---
 
-## 🔐 Authentication & Session
+## Authentication and Session
 
 ### `POST /api/login`
 Authenticates an administrator or field technician.
@@ -32,7 +32,7 @@ Authenticates an administrator or field technician.
 
 ---
 
-## 📊 Operations Dashboard
+## Operations Dashboard
 
 ### `GET /api/dashboard/summary`
 Returns high-level network health, subscriber counts, and technician availability.
@@ -50,7 +50,7 @@ Returns high-level network health, subscriber counts, and technician availabilit
 
 ---
 
-## 🗺️ Geospatial ODP & Fiber Topology
+## Geospatial ODP and Fiber Topology
 
 ### `GET /api/odps`
 Retrieves all Optical Distribution Points with GPS coordinates and port capacities.
@@ -79,7 +79,7 @@ Returns port allocation map and attached subscriber lines for a given ODP.
 
 ---
 
-## ⚡ Field Technician Work Orders
+## Field Technician Work Orders
 
 ### `GET /api/tasks`
 Lists work orders with filtering by technician, status, and date.
@@ -102,7 +102,7 @@ Closes a work order with optical signal readings and hardware verification.
 
 ---
 
-## 📦 Asset & Inventory Lifecycle
+## Asset and Inventory Lifecycle
 
 ### `GET /api/assets`
 Returns real-time stock levels of ONTs, drop cables, and optical splitters.
@@ -112,7 +112,7 @@ Audit trail of stock movements (intake, allocation to technician, damaged return
 
 ---
 
-## 📡 Real-Time WebSocket Channels (Laravel Reverb)
+## Real-Time WebSocket Channels (Laravel Reverb)
 
 Client connects via standard WebSocket or Laravel Echo:
 - **Host:** `ws://localhost:8080` (or `wss://api.yourdomain.com/app`)
