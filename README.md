@@ -1,4 +1,4 @@
-﻿<div align="center">
+<div align="center">
 
 # 🌐 FiberPulse
 ### Enterprise FTTH Network Topology, Geospatial ODP Mapper & Real-Time Field Dispatch Platform
@@ -67,6 +67,35 @@ flowchart TB
     RestAPI --> RedisCache
     ReverbWS <--> RedisCache
 ```
+
+---
+
+## 📸 Visual Showcase
+
+<div align="center">
+  <h3>Operations Center & Executive Analytics</h3>
+  <img src="docs/screenshots/dashboard.png" alt="FiberPulse Executive Dashboard" width="96%" />
+  <p><i>Real-time network telemetry, subscriber growth metrics, active technician dispatch distribution, and inventory tracking.</i></p>
+</div>
+
+<br/>
+
+<div align="center">
+  <table width="100%">
+    <tr>
+      <td width="50%" align="center">
+        <b>Interactive Geospatial ODP Planning</b><br/><br/>
+        <img src="docs/screenshots/gis_odp_map.png" alt="Geospatial FTTH ODP Mapping" width="100%" />
+        <p align="left"><sub>Real-time optical port capacity tracking (Green/Amber/Red), drop cable distance calculations, and fiber route planning.</sub></p>
+      </td>
+      <td width="50%" align="center">
+        <b>Work Order & Fleet Dispatching</b><br/><br/>
+        <img src="docs/screenshots/order_dispatch.png" alt="Work Order & Field Dispatching" width="100%" />
+        <p align="left"><sub>Event-driven technician dispatching, optical Rx calibration checks (-18 to -24 dBm), and automated subscriber onboarding.</sub></p>
+      </td>
+    </tr>
+  </table>
+</div>
 
 ---
 
@@ -145,6 +174,7 @@ docker compose exec backend php artisan migrate --seed
 ### 4. Access the Applications
 - **Web Application Portal:** [http://localhost:5173](http://localhost:5173) (or [http://localhost](http://localhost))
 - **REST API Endpoint:** [http://localhost:8000/api](http://localhost:8000/api)
+- **API Reference Specification:** [`docs/api-reference.md`](docs/api-reference.md)
 - **WebSocket Server:** `ws://localhost:8080/app`
 
 ---
