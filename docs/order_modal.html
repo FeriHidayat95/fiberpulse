@@ -1,0 +1,575 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FiberPulse - Operations Command Center</title>
+  
+  <!-- Modern Clean Typography: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Inter"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              navy: '#152C4A',
+              azure: '#42A1D3',
+              blue: '#2563EB',
+              ice: '#F1F7FC',
+              border: '#E2EBF4',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+
+    /* Signature Gradient FiberPulse */
+    .brand-gradient {
+      background: linear-gradient(135deg, #152C4A 0%, #2563EB 100%) !important;
+      color: #FFFFFF !important;
+      box-shadow: 0 4px 14px rgba(21, 44, 74, 0.22);
+    }
+    .brand-gradient svg {
+      color: #FFFFFF !important;
+    }
+
+    .brand-btn-primary {
+      background: linear-gradient(135deg, #152C4A 0%, #2563EB 100%) !important;
+      color: #FFFFFF !important;
+      box-shadow: 0 4px 14px rgba(21, 44, 74, 0.25);
+      transition: all 0.2s ease;
+    }
+    .brand-btn-primary:hover {
+      opacity: 0.94;
+      box-shadow: 0 6px 18px rgba(21, 44, 74, 0.35);
+    }
+    .brand-btn-primary:active {
+      transform: scale(0.98);
+    }
+  </style>
+</head>
+
+<body class="bg-[#F8FAFC] text-slate-800 font-sans antialiased min-h-screen flex overflow-hidden selection:bg-brand-blue selection:text-white">
+
+  <!-- Mobile Sidebar Backdrop -->
+  <div id="sidebar-backdrop" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-40 hidden md:hidden transition-opacity"></div>
+
+  <!-- Sidebar -->
+  <aside id="sidebar" class="w-60 bg-white border-r border-slate-200 flex flex-col justify-between shrink-0 z-50 fixed md:static inset-y-0 left-0 -translate-x-full md:translate-x-0 transition-transform duration-200 ease-in-out select-none">
+    
+    <div>
+      <!-- Brand Logo Header -->
+      <div class="h-16 px-5 flex items-center justify-between border-b border-slate-200 bg-white">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg brand-gradient flex items-center justify-center text-white shadow-xs">
+            <i data-lucide="radio" class="w-4 h-4 text-white"></i>
+          </div>
+          <span class="font-extrabold text-sm tracking-tight text-brand-navy">
+            FiberPulse
+          </span>
+        </div>
+
+        <button onclick="toggleSidebar()" class="md:hidden text-slate-400 hover:text-slate-600 p-1">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- Navigation Menu -->
+      <nav class="p-3 space-y-4 overflow-y-auto max-h-[calc(100vh-130px)] text-xs">
+        
+        <!-- Group 1 -->
+        <div>
+          <div class="px-2.5 mb-1 text-[10px] font-bold uppercase tracking-wider text-slate-400">Operations & GIS</div>
+          <div class="space-y-0.5">
+            <a href="#" class="brand-gradient flex items-center gap-2.5 px-3 py-2 rounded-lg font-semibold transition">
+              <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+              <span>Dashboard</span>
+            </a>
+            <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg font-medium text-slate-600 hover:text-brand-navy hover:bg-slate-50 transition">
+              <i data-lucide="map" class="w-4 h-4 text-slate-400"></i>
+              <span>GIS ODP Planner</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Group 2 -->
+        <div>
+          <div class="px-2.5 mb-1 text-[10px] font-bold uppercase tracking-wider text-slate-400">Inventory & Assets</div>
+          <div class="space-y-0.5">
+            <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg font-medium text-slate-600 hover:text-brand-navy hover:bg-slate-50 transition">
+              <i data-lucide="package" class="w-4 h-4 text-slate-400"></i>
+              <span>Warehouse Stock</span>
+            </a>
+            <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg font-medium text-slate-600 hover:text-brand-navy hover:bg-slate-50 transition">
+              <i data-lucide="arrow-down-left" class="w-4 h-4 text-slate-400"></i>
+              <span>Asset Intake</span>
+            </a>
+            <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg font-medium text-slate-600 hover:text-brand-navy hover:bg-slate-50 transition">
+              <i data-lucide="arrow-up-right" class="w-4 h-4 text-slate-400"></i>
+              <span>Technician Allocation</span>
+            </a>
+            <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg font-medium text-slate-600 hover:text-brand-navy hover:bg-slate-50 transition">
+              <i data-lucide="alert-circle" class="w-4 h-4 text-slate-400"></i>
+              <span>Defective Returns</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Group 3 -->
+        <div>
+          <div class="px-2.5 mb-1 text-[10px] font-bold uppercase tracking-wider text-slate-400">Field Operations</div>
+          <div class="space-y-0.5">
+            <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg font-medium text-slate-600 hover:text-brand-navy hover:bg-slate-50 transition">
+              <i data-lucide="users" class="w-4 h-4 text-slate-400"></i>
+              <span>Subscribers</span>
+            </a>
+            <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg font-medium text-slate-600 hover:text-brand-navy hover:bg-slate-50 transition">
+              <i data-lucide="shopping-cart" class="w-4 h-4 text-slate-400"></i>
+              <span>Work Orders</span>
+            </a>
+            <a href="#" class="flex items-center gap-2.5 px-3 py-2 rounded-lg font-medium text-slate-600 hover:text-brand-navy hover:bg-slate-50 transition">
+              <i data-lucide="wrench" class="w-4 h-4 text-slate-400"></i>
+              <span>Fleet Technicians</span>
+            </a>
+          </div>
+        </div>
+
+      </nav>
+    </div>
+
+    <!-- Sidebar Bottom -->
+    <div class="p-3 border-t border-slate-100">
+      <div class="px-3 py-2 rounded-lg bg-slate-50 border border-slate-200/80 text-[11px] text-slate-500 font-mono">
+        FiberPulse v2.4 Enterprise
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- Content Area -->
+  <div class="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
+    
+    <!-- Top Header (Height 64px) -->
+    <header class="h-16 bg-white border-b border-slate-200 px-4 md:px-6 flex items-center justify-between z-30 shrink-0 select-none shadow-2xs">
+      
+      <!-- Left: Mobile Toggle -->
+      <div>
+        <button onclick="toggleSidebar()" class="md:hidden p-1.5 rounded-lg text-slate-600 hover:bg-slate-100 transition">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Right: Telemetry, Search, and Profile -->
+      <div class="flex items-center gap-2.5">
+        <button class="p-2 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-600 transition relative" title="System Alerts">
+          <i data-lucide="bell" class="w-4 h-4"></i>
+          <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full absolute top-2 right-2"></span>
+        </button>
+
+        <button class="p-2 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-600 transition" title="Audit Telemetry">
+          <i data-lucide="activity" class="w-4 h-4"></i>
+        </button>
+
+        <div class="w-px h-5 bg-slate-200 mx-0.5"></div>
+
+        <!-- Profile Box -->
+        <div class="flex items-center gap-2.5 px-2.5 py-1.5 rounded-xl bg-slate-50 border border-slate-200 shadow-2xs">
+          <div class="w-7 h-7 rounded-lg brand-gradient text-white text-xs font-bold flex items-center justify-center shadow-xs">
+            AD
+          </div>
+          <div class="text-left leading-tight hidden sm:block">
+            <div class="text-xs font-bold text-slate-900">Operations NOC</div>
+            <div class="text-[10px] text-slate-400 font-mono">admin@fiberpulse.io</div>
+          </div>
+        </div>
+
+      </div>
+
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-1 overflow-y-auto p-4 md:p-6 space-y-4 max-w-7xl w-full mx-auto">
+      
+      <!-- Hero Banner -->
+      <div class="bg-gradient-to-r from-brand-ice to-white border border-brand-border rounded-xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
+        <div>
+          <h1 class="text-lg sm:text-xl font-bold text-brand-navy tracking-tight">
+            Operations Command Center
+          </h1>
+          <p class="text-xs text-slate-500 mt-0.5 font-medium">Real-time FTTH telemetry, optical power diagnostics, and field fleet dispatching.</p>
+        </div>
+
+        <div class="flex items-center gap-2 self-start sm:self-auto shrink-0">
+          <button class="bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-semibold px-3 py-2 rounded-lg text-xs flex items-center gap-1.5 transition shadow-2xs">
+            <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-slate-500"></i>
+            <span>Refresh</span>
+          </button>
+
+          <button class="brand-btn-primary font-semibold px-3.5 py-2 rounded-lg text-xs flex items-center gap-1.5">
+            <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+            <span>New Work Order</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 5-Metric Cards Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+        
+        <!-- Card 1 -->
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs flex flex-col justify-between hover:border-slate-300 transition">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">ACTIVE SUBSCRIBERS</span>
+            <div class="w-6 h-6 rounded-md bg-brand-ice text-brand-azure flex items-center justify-center">
+              <i data-lucide="users" class="w-3.5 h-3.5"></i>
+            </div>
+          </div>
+          <div class="text-xl sm:text-2xl font-bold text-brand-navy tracking-tight font-mono">1,284</div>
+          <div class="text-[11px] text-emerald-600 font-medium mt-1">+12% net growth</div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs flex flex-col justify-between hover:border-slate-300 transition">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">DROP CABLE STOCK</span>
+            <div class="w-6 h-6 rounded-md bg-emerald-50 text-emerald-600 flex items-center justify-center">
+              <i data-lucide="package" class="w-3.5 h-3.5"></i>
+            </div>
+          </div>
+          <div class="text-xl sm:text-2xl font-bold text-emerald-600 tracking-tight font-mono">18,500 m</div>
+          <div class="text-[11px] text-slate-400 font-medium mt-1">18 Rolls Available</div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs flex flex-col justify-between hover:border-slate-300 transition">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">DISPATCH TASKS</span>
+            <div class="w-6 h-6 rounded-md bg-amber-50 text-amber-600 flex items-center justify-center">
+              <i data-lucide="wrench" class="w-3.5 h-3.5"></i>
+            </div>
+          </div>
+          <div class="text-xl sm:text-2xl font-bold text-amber-600 tracking-tight font-mono">3 Active</div>
+          <div class="text-[11px] text-amber-600 font-medium mt-1">2 Crews Dispatched</div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs flex flex-col justify-between hover:border-slate-300 transition">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">DISTRIBUTION ODPS</span>
+            <div class="w-6 h-6 rounded-md bg-blue-50 text-brand-blue flex items-center justify-center">
+              <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
+            </div>
+          </div>
+          <div class="text-xl sm:text-2xl font-bold text-brand-blue tracking-tight font-mono">94 Posts</div>
+          <div class="text-[11px] text-slate-400 font-medium mt-1">68.4% Port Load</div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="col-span-2 sm:col-span-1 bg-white p-4 rounded-xl border border-slate-200 shadow-xs flex flex-col justify-between hover:border-slate-300 transition">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">SIGNAL INTEGRITY</span>
+            <div class="w-6 h-6 rounded-md bg-teal-50 text-teal-600 flex items-center justify-center">
+              <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+            </div>
+          </div>
+          <div class="text-xl sm:text-2xl font-bold text-teal-600 tracking-tight font-mono">99.8%</div>
+          <div class="text-[11px] text-emerald-600 font-medium mt-1">0 Critical Faults</div>
+        </div>
+
+      </div>
+
+      <!-- Middle Grid: Chart & Real-Time Tasks -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        
+        <!-- Left: Bandwidth & Provisioning Trends -->
+        <div class="lg:col-span-2 bg-white rounded-xl border border-slate-200 p-4 shadow-xs">
+          <div class="flex items-center justify-between mb-3">
+            <div>
+              <h3 class="text-xs font-bold text-brand-navy uppercase tracking-wider">Subscriber Provisioning & Service Traffic</h3>
+              <p class="text-[11px] text-slate-400">Aggregate bandwidth load and work order volume</p>
+            </div>
+            <div class="flex items-center gap-3 text-[11px] font-medium text-slate-500">
+              <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-xs bg-brand-blue"></span> New Subscribers</span>
+              <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-xs bg-emerald-500"></span> Bandwidth (Gbps)</span>
+            </div>
+          </div>
+          <div class="h-48 w-full">
+            <canvas id="monthlyChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Right: Recent Dispatch Queue -->
+        <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-xs flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3 border-b border-slate-100 pb-2">
+              <h3 class="text-xs font-bold text-brand-navy uppercase tracking-wider">Live Field Tasks</h3>
+              <span class="text-[10px] text-slate-400 font-mono">WebSockets Active</span>
+            </div>
+
+            <div class="space-y-2.5">
+              <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/80 text-xs space-y-1.5">
+                <div class="flex items-center justify-between font-semibold text-slate-900">
+                  <span>TCK-2026-0891</span>
+                  <span class="text-[10px] text-amber-600 font-mono font-bold bg-amber-50 px-2 py-0.5 rounded border border-amber-200">IN PROGRESS</span>
+                </div>
+                <div class="text-[11px] text-slate-600">FTTH Installation • Liam Gallagher</div>
+                <div class="text-[10px] text-slate-400 font-mono">Tech: David Chen • ODP-NTH-04</div>
+              </div>
+
+              <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/80 text-xs space-y-1.5">
+                <div class="flex items-center justify-between font-semibold text-slate-900">
+                  <span>TCK-2026-0890</span>
+                  <span class="text-[10px] text-emerald-600 font-mono font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">COMPLETED</span>
+                </div>
+                <div class="text-[11px] text-slate-600">LOS Inspection • Marcus Vance</div>
+                <div class="text-[10px] text-slate-400 font-mono">Tech: Alex Rivera • -20.8 dBm</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-[11px] text-slate-400 text-center pt-3 border-t border-slate-100 font-medium">
+            Automated Field SLA: 100% compliant
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom: Recent Orders High-Density Table -->
+      <div class="bg-white rounded-xl border border-slate-200 shadow-xs overflow-hidden">
+        <div class="p-3.5 flex items-center justify-between border-b border-slate-200">
+          <div>
+            <h3 class="text-xs font-bold text-brand-navy uppercase tracking-wider">Recent Work Orders</h3>
+            <p class="text-[11px] text-slate-400">Real-time subscriber activation pipeline</p>
+          </div>
+          <button class="text-xs text-brand-blue hover:underline font-semibold">View All Orders →</button>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse min-w-[650px]">
+            <thead>
+              <tr class="border-b border-slate-200 bg-slate-50 text-slate-500 font-mono text-[10px] uppercase">
+                <th class="py-2.5 px-3.5">ORDER ID</th>
+                <th class="py-2.5 px-3.5">SUBSCRIBER</th>
+                <th class="py-2.5 px-3.5">TIER SPEED</th>
+                <th class="py-2.5 px-3.5">DISTRIBUTION POST</th>
+                <th class="py-2.5 px-3.5">OPTICAL RX</th>
+                <th class="py-2.5 px-3.5 text-center">STATUS</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 text-slate-700">
+              <tr class="hover:bg-slate-50 transition">
+                <td class="py-2.5 px-3.5 font-mono font-semibold text-brand-navy">ORD-2026-0891</td>
+                <td class="py-2.5 px-3.5 font-medium text-slate-900">Liam Gallagher</td>
+                <td class="py-2.5 px-3.5 font-mono text-slate-600">150 Mbps Fiber</td>
+                <td class="py-2.5 px-3.5 font-mono text-slate-500">ODP-NTH-04 (Port 3)</td>
+                <td class="py-2.5 px-3.5 font-mono text-emerald-600 font-semibold">-19.4 dBm</td>
+                <td class="py-2.5 px-3.5 text-center">
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-50 text-amber-700 border border-amber-200 font-mono">
+                    DISPATCHED
+                  </span>
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-50 transition">
+                <td class="py-2.5 px-3.5 font-mono font-semibold text-brand-navy">ORD-2026-0890</td>
+                <td class="py-2.5 px-3.5 font-medium text-slate-900">Marcus Vance</td>
+                <td class="py-2.5 px-3.5 font-mono text-slate-600">50 Mbps Fiber</td>
+                <td class="py-2.5 px-3.5 font-mono text-slate-500">ODP-WST-02 (Port 7)</td>
+                <td class="py-2.5 px-3.5 font-mono text-emerald-600 font-semibold">-20.8 dBm</td>
+                <td class="py-2.5 px-3.5 text-center">
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono">
+                    COMPLETED
+                  </span>
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-50 transition">
+                <td class="py-2.5 px-3.5 font-mono font-semibold text-brand-navy">ORD-2026-0889</td>
+                <td class="py-2.5 px-3.5 font-medium text-slate-900">Sarah Jenkins</td>
+                <td class="py-2.5 px-3.5 font-mono text-slate-600">150 Mbps Fiber</td>
+                <td class="py-2.5 px-3.5 font-mono text-slate-500">ODP-CTR-01 (Port 6)</td>
+                <td class="py-2.5 px-3.5 font-mono text-emerald-600 font-semibold">-18.2 dBm</td>
+                <td class="py-2.5 px-3.5 text-center">
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono">
+                    COMPLETED
+                  </span>
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-50 transition">
+                <td class="py-2.5 px-3.5 font-mono font-semibold text-brand-navy">ORD-2026-0888</td>
+                <td class="py-2.5 px-3.5 font-medium text-slate-900">Elena Rostova</td>
+                <td class="py-2.5 px-3.5 font-mono text-slate-600">1 Gbps Dedicated</td>
+                <td class="py-2.5 px-3.5 font-mono text-slate-500">ODP-EST-03 (Port 16)</td>
+                <td class="py-2.5 px-3.5 font-mono text-emerald-600 font-semibold">-17.5 dBm</td>
+                <td class="py-2.5 px-3.5 text-center">
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono">
+                    COMPLETED
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    // Chart.js Monthly Trend
+    const ctx = document.getElementById('monthlyChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+        datasets: [
+          {
+            type: 'line',
+            label: 'Bandwidth (Gbps)',
+            data: [28, 35, 42, 58, 64, 78, 85, 94, 108],
+            borderColor: '#10B981',
+            borderWidth: 2,
+            tension: 0.3,
+            fill: false,
+            yAxisID: 'y1',
+            pointRadius: 3
+          },
+          {
+            type: 'bar',
+            label: 'New Subscribers',
+            data: [65, 80, 95, 120, 140, 165, 190, 210, 245],
+            backgroundColor: '#2563EB',
+            borderRadius: 4,
+            yAxisID: 'y'
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          x: { grid: { display: false }, ticks: { font: { size: 10, family: 'JetBrains Mono' } } },
+          y: { grid: { color: 'rgba(226, 232, 240, 0.6)' }, ticks: { font: { size: 10, family: 'JetBrains Mono' } } },
+          y1: { position: 'right', grid: { display: false }, ticks: { font: { size: 10, family: 'JetBrains Mono' } } }
+        }
+      }
+    });
+  </script>
+  <!-- Modal Overlay -->
+  <div class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-2xl max-w-lg w-full overflow-hidden">
+      <!-- Modal Header -->
+      <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50/50">
+        <div>
+          <div class="text-xs font-mono font-bold text-brand-blue uppercase tracking-wider">WORK ORDER DISPATCH</div>
+          <h2 class="text-base font-bold text-brand-navy tracking-tight mt-0.5">ORD-2026-0891 • FTTH Onboarding</h2>
+        </div>
+        <span class="px-2.5 py-1 rounded-full text-[10px] font-bold font-mono bg-amber-50 text-amber-700 border border-amber-200">
+          DISPATCHED
+        </span>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6 space-y-4 text-xs">
+        
+        <!-- Subscriber Info -->
+        <div class="grid grid-cols-2 gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200/80">
+          <div>
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Subscriber</span>
+            <div class="font-semibold text-slate-900 mt-0.5">Liam Gallagher</div>
+            <div class="text-[11px] text-slate-500 font-mono mt-0.5">+1 (555) 123-4004</div>
+          </div>
+          <div>
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Service Tier</span>
+            <div class="font-semibold text-brand-blue font-mono mt-0.5">150 Mbps Fiber</div>
+            <div class="text-[11px] text-slate-500 mt-0.5">Symmetrical 1:1</div>
+          </div>
+          <div class="col-span-2 pt-2 border-t border-slate-200">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Installation Address</span>
+            <div class="text-slate-700 mt-0.5">12 Meadowview Court, North Residential Haven</div>
+          </div>
+        </div>
+
+        <!-- Optical Telemetry & Hardware -->
+        <div class="space-y-2">
+          <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Optical Telemetry & Hardware</div>
+          
+          <div class="p-3 rounded-xl border border-slate-200 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-slate-500">Target Terminal:</span>
+              <span class="font-mono font-semibold text-slate-800">ODP-NTH-04 (Port 3)</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-slate-500">Optical Rx Power:</span>
+              <span class="font-mono font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">-19.4 dBm (Healthy)</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-slate-500">Provisioned ONT Serial:</span>
+              <span class="font-mono font-semibold text-slate-800">ONT-HW-20260901</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-slate-500">Drop Cable Used:</span>
+              <span class="font-mono text-slate-700">45 Meters (Pre-connectorized)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Assigned Field Crew -->
+        <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200/80">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg brand-gradient text-white flex items-center justify-center font-bold text-xs">
+              DC
+            </div>
+            <div>
+              <div class="font-semibold text-slate-900">David Chen</div>
+              <div class="text-[10px] text-slate-400 font-mono">Field Operations Crew Alpha</div>
+            </div>
+          </div>
+          <span class="text-[10px] font-mono text-emerald-600 font-bold bg-emerald-50 px-2 py-1 rounded border border-emerald-200">
+            GPS ONLINE
+          </span>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="px-6 py-3.5 border-t border-slate-200 bg-slate-50 flex items-center justify-end gap-2">
+        <button class="px-3 py-1.5 rounded-lg border border-slate-300 text-slate-600 font-semibold hover:bg-slate-100 transition text-xs">
+          Close
+        </button>
+        <button class="brand-btn-primary px-4 py-1.5 rounded-lg text-white font-semibold transition text-xs">
+          Provision Subscriber
+        </button>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
+
