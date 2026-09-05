@@ -195,7 +195,7 @@ class OrderController extends Controller
         try {
             $order = Order::find($id);
             if (!$order) {
-                return response()->json(['success' => false, 'message' => 'Order tidak ditemukan'], 404);
+                return response()->json(['success' => false, 'message' => 'Work order not found.'], 404);
             }
             return response()->json(['success' => true, 'data' => $order]);
         } catch (\Exception $e) {
@@ -208,14 +208,14 @@ class OrderController extends Controller
         try {
             $order = Order::find($id);
             if (!$order) {
-                return response()->json(['success' => false, 'message' => 'Order tidak ditemukan'], 404);
+                return response()->json(['success' => false, 'message' => 'Work order not found.'], 404);
             }
 
-            // Validasi: Edit Order hanya diizinkan jika status masih Pending / Menunggu
+            // Validation: Work order modifications only permitted while pending dispatch
             if (!in_array($order->status, ['Menunggu', 'Pending']) && !$request->has('force_admin')) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Pesanan tidak dapat diedit karena sedang diproses atau telah selesai.'
+                    'message' => 'Work order cannot be edited because it is in progress or completed.'
                 ], 422);
             }
 
@@ -234,10 +234,10 @@ class OrderController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Data order berhasil diperbarui!'
+                'message' => 'Work order updated successfully.'
             ]);
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Gagal update order: ' . $e->getMessage()], 500);
+            return response()->json(['success' => false, 'message' => 'Failed to update work order: ' . $e->getMessage()], 500);
         }
     }
 
@@ -246,10 +246,10 @@ class OrderController extends Controller
         try {
             $order = Order::find($id);
             if (!$order) {
-                return response()->json(['success' => false, 'message' => 'Order tidak ditemukan'], 404);
+                return response()->json(['success' => false, 'message' => 'Work order not found.'], 404);
             }
 
-            // Validasi: Hapus Order hanya diizinkan untuk status Pending / Menunggu
+            // Validation: Work order cancellation only permitted while pending dispatch
             if (!in_array($order->status, ['Menunggu', 'Pending'])) {
                 return response()->json([
                     'success' => false,
@@ -265,9 +265,9 @@ class OrderController extends Controller
             }
             $order->delete();
 
-            return response()->json(['success' => true, 'message' => 'Order berstatus pending berhasil dihapus']);
+            return response()->json(['success' => true, 'message' => 'Pending work order deleted successfully.']);
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Gagal menghapus order: ' . $e->getMessage()], 500);
+            return response()->json(['success' => false, 'message' => 'Failed to delete work order: ' . $e->getMessage()], 500);
         }
     }
 
@@ -291,7 +291,7 @@ class OrderController extends Controller
             if ($pendingOrders->isEmpty()) {
                 return response()->json([
                     'success' => true,
-                    'message' => 'Tidak ada order pending yang memerlukan penugasan otomatis.',
+                    'message' => 'No pending work orders require automated dispatch.',
                     'assigned_count' => 0
                 ]);
             }
@@ -302,7 +302,7 @@ class OrderController extends Controller
             if ($technicians->isEmpty()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Gagal auto-dispatch: Belum ada data akun teknisi di sistem!'
+                    'message' => 'Automated dispatch failed: No active technicians found in system.'
                 ], 422);
             }
 
@@ -404,7 +404,7 @@ class OrderController extends Controller
                 'log' => $assignedLog
             ]);
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Gagal auto-dispatch: ' . $e->getMessage()], 500);
+            return response()->json(['success' => false, 'message' => 'Automated dispatch failed: ' . $e->getMessage()], 500);
         }
     }
 }

@@ -26,7 +26,7 @@ class AssetController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Gagal mengambil data aset: ' . $e->getMessage()
+                'message' => 'Failed to retrieve asset data: ' . $e->getMessage()
             ], 500);
         }
     }
@@ -134,7 +134,7 @@ class AssetController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Gagal memuat item serial: ' . $e->getMessage()
+                'message' => 'Failed to load serialized items: ' . $e->getMessage()
             ], 500);
         }
     }
@@ -354,7 +354,7 @@ class AssetController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Gagal mengambil aset: ' . $e->getMessage()
+                'message' => 'Failed to check out asset: ' . $e->getMessage()
             ], 500);
         }
     }
@@ -400,7 +400,7 @@ class AssetController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Gagal melapor kerusakan: ' . $e->getMessage()
+                'message' => 'Failed to record damaged asset: ' . $e->getMessage()
             ], 500);
         }
     }
@@ -424,7 +424,7 @@ class AssetController extends Controller
             $qtyToScrap = min($currentDamaged, $validated['quantity']);
 
             if ($qtyToScrap <= 0) {
-                return response()->json(['success' => false, 'message' => 'Tidak ada stok rusak yang dapat dimusnahkan!'], 422);
+                return response()->json(['success' => false, 'message' => 'No damaged inventory available for disposal.'], 422);
             }
 
             $newDamaged = max(0, $currentDamaged - $qtyToScrap);
@@ -450,7 +450,7 @@ class AssetController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Gagal memproses pemusnahan aset: ' . $e->getMessage()
+                'message' => 'Failed to process asset disposal: ' . $e->getMessage()
             ], 500);
         }
     }
@@ -512,7 +512,7 @@ class AssetController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Gagal mengunggah foto bukti: ' . $e->getMessage()
+                'message' => 'Failed to upload verification photo: ' . $e->getMessage()
             ], 500);
         }
     }
@@ -670,7 +670,7 @@ class AssetController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Gagal mengambil riwayat transaksi: ' . $e->getMessage()
+                'message' => 'Failed to retrieve transaction history: ' . $e->getMessage()
             ], 500);
         }
     }
@@ -726,11 +726,11 @@ class AssetController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Data aset berhasil diperbarui',
+                'message' => 'Asset details successfully updated.',
                 'data' => $asset->fresh()
             ]);
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Gagal update aset: ' . $e->getMessage()], 500);
+            return response()->json(['success' => false, 'message' => 'Failed to update asset: ' . $e->getMessage()], 500);
         }
     }
 
@@ -738,9 +738,9 @@ class AssetController extends Controller
     {
         try {
             Asset::destroy($id);
-            return response()->json(['success' => true, 'message' => 'Aset berhasil dihapus']);
+            return response()->json(['success' => true, 'message' => 'Asset successfully deleted.']);
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Gagal menghapus aset: ' . $e->getMessage()], 500);
+            return response()->json(['success' => false, 'message' => 'Failed to delete asset: ' . $e->getMessage()], 500);
         }
     }
 
@@ -784,7 +784,7 @@ class AssetController extends Controller
 
             return response()->json(['success' => true, 'message' => 'Transaksi berhasil diupdate']);
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Gagal update transaksi: ' . $e->getMessage()], 500);
+            return response()->json(['success' => false, 'message' => 'Failed to update transaction: ' . $e->getMessage()], 500);
         }
     }
 
@@ -820,7 +820,7 @@ class AssetController extends Controller
             $tx->delete();
             return response()->json(['success' => true, 'message' => 'Transaksi berhasil dihapus']);
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Gagal menghapus transaksi: ' . $e->getMessage()], 500);
+            return response()->json(['success' => false, 'message' => 'Failed to delete transaction: ' . $e->getMessage()], 500);
         }
     }
 
@@ -965,7 +965,7 @@ class AssetController extends Controller
 
                 return response()->json([
                     'success' => true,
-                    'message' => 'Data serial number, tahun, dan kondisi berhasil diperbarui',
+                    'message' => 'Serial number, manufacture year, and condition updated successfully.',
                     'data' => $tx
                 ]);
             }
@@ -997,9 +997,9 @@ class AssetController extends Controller
                 ]);
             }
 
-            return response()->json(['success' => false, 'message' => 'Data serial tidak ditemukan'], 404);
+            return response()->json(['success' => false, 'message' => 'Serialized item record not found.'], 404);
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Gagal memperbarui serial: ' . $e->getMessage()], 500);
+            return response()->json(['success' => false, 'message' => 'Failed to update serialized item: ' . $e->getMessage()], 500);
         }
     }
 
@@ -1046,7 +1046,7 @@ class AssetController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Gagal memuat daftar serah terima: ' . $e->getMessage()
+                'message' => 'Failed to load asset handover list: ' . $e->getMessage()
             ], 500);
         }
     }
@@ -1096,7 +1096,7 @@ class AssetController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Gagal memproses serah terima: ' . $e->getMessage()
+                'message' => 'Failed to process asset handover: ' . $e->getMessage()
             ], 500);
         }
     }

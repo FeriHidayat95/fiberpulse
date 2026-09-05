@@ -30,7 +30,7 @@ class TaskController extends Controller
             return null;
         }
 
-        // Jika sudah berupa URL biasa, return as is
+        // Return absolute URL directly if already fully qualified
         if (!str_starts_with($data, 'data:image/')) {
             return $data;
         }
@@ -224,7 +224,7 @@ class TaskController extends Controller
                     }
                 }
 
-                // Validasi Keunikan SN Modem pada Pelanggan Aktif
+                // Enforce hardware serial number uniqueness across active subscriber ONTs
                 if (!empty($request->modem_sn) && $task->type !== 'Pencabutan') {
                     $cleanSn = trim($request->modem_sn);
                     $existingWithSn = Customer::where('modem_sn', $cleanSn)
@@ -413,7 +413,7 @@ class TaskController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Gagal menyelesaikan tugas: ' . $e->getMessage()
+                'message' => 'Failed to complete task: ' . $e->getMessage()
             ], 422);
         }
     }
@@ -462,7 +462,7 @@ class TaskController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Gagal eskalasi tugas: ' . $e->getMessage()
+                'message' => 'Failed to escalate task: ' . $e->getMessage()
             ], 500);
         }
     }
@@ -475,7 +475,7 @@ class TaskController extends Controller
                 return response()->json(['success' => false, 'message' => 'Tugas tidak ditemukan'], 404);
             }
 
-            // Validasi: Perubahan detail hanya diizinkan jika status tugas belum selesai
+            // Validation: Task updates permitted only prior to completion
             if ($task->status === 'Selesai' && !$request->has('force_admin')) {
                 return response()->json([
                     'success' => false,
@@ -500,11 +500,11 @@ class TaskController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Data penugasan berhasil diperbarui!',
+                'message' => 'Task assignment updated successfully.',
                 'data' => Task::find($id)
             ]);
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Gagal update penugasan: ' . $e->getMessage()], 500);
+            return response()->json(['success' => false, 'message' => 'Failed to update task assignment: ' . $e->getMessage()], 500);
         }
     }
 
@@ -516,7 +516,7 @@ class TaskController extends Controller
                 return response()->json(['success' => false, 'message' => 'Tugas tidak ditemukan atau ID tidak valid'], 404);
             }
 
-            // Validasi: Pembatalan tugas hanya diizinkan jika status belum selesai
+            // Validation: Task cancellation permitted only prior to completion
             if ($task->status === 'Selesai') {
                 return response()->json([
                     'success' => false,
@@ -536,7 +536,7 @@ class TaskController extends Controller
             
             return response()->json(['success' => true, 'message' => 'Tugas berhasil dibatalkan']);
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Gagal membatalkan tugas: ' . $e->getMessage()], 500);
+            return response()->json(['success' => false, 'message' => 'Failed to cancel task: ' . $e->getMessage()], 500);
         }
     }
 }

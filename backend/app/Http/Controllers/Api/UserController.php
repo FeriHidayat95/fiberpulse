@@ -81,7 +81,7 @@ class UserController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Gagal menyimpan akun: ' . $e->getMessage()
+                'message' => 'Failed to save account: ' . $e->getMessage()
             ], 500);
         }
     }
@@ -151,7 +151,7 @@ class UserController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Gagal memperbarui akun: ' . $e->getMessage()
+                'message' => 'Failed to update account: ' . $e->getMessage()
             ], 500);
         }
     }

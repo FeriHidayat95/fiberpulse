@@ -86,7 +86,7 @@ class CustomerController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Data pelanggan berhasil disimpan!',
+            'message' => 'Customer record created successfully.',
             'data' => $customer
         ], 201);
     }
@@ -269,11 +269,11 @@ class CustomerController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Data pelanggan berhasil diperbarui!',
+                'message' => 'Customer record updated successfully.',
                 'data' => $customer->fresh(['odp'])
             ]);
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Gagal update pelanggan: ' . $e->getMessage()], 500);
+            return response()->json(['success' => false, 'message' => 'Failed to update customer: ' . $e->getMessage()], 500);
         }
     }
 
@@ -285,7 +285,7 @@ class CustomerController extends Controller
                 return response()->json(['success' => false, 'message' => 'Pelanggan tidak ditemukan'], 404);
             }
 
-            // Proteksi: Cegah hapus jika pelanggan masih memiliki tiket pengerjaan aktif
+            // Guard: Prevent deletion if subscriber has active hardware work orders
             $activeTasksCount = Task::where('customer_id', $customer->id)
                 ->whereIn('status', ['Menunggu', 'Pending', 'Dikerjakan', 'Diproses'])
                 ->count();
@@ -315,7 +315,7 @@ class CustomerController extends Controller
                 'message' => "Pelanggan \"{$customer->name}\" berhasil dihapus dan port ODP berhasil dilepaskan."
             ]);
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Gagal menghapus pelanggan: ' . $e->getMessage()], 500);
+            return response()->json(['success' => false, 'message' => 'Failed to delete customer: ' . $e->getMessage()], 500);
         }
     }
 }

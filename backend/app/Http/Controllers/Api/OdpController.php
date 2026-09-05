@@ -89,7 +89,7 @@ class OdpController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Data ODP berhasil diperbarui',
+            'message' => 'ODP distribution point updated successfully.',
             'data' => $odp
         ]);
     }
