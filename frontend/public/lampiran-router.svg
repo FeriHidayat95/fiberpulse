@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#bg3)" rx="12" />
+  
+  <!-- Header Stamp -->
+  <rect x="20" y="20" width="560" height="40" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" />
+  <text x="40" y="45" fill="#60a5fa" font-family="sans-serif" font-weight="bold" font-size="16">📸 DR-NET LOGISTICS — BUKTI CABUTAN WIRELESS ROUTER</text>
+  <circle cx="550" cy="40" r="8" fill="#10b981" />
+  
+  <!-- Router Illustration -->
+  <rect x="160" y="120" width="280" height="130" rx="20" fill="#334155" stroke="#64748b" stroke-width="2" />
+  <!-- 4 Antennas -->
+  <rect x="180" y="60" width="6" height="65" rx="3" fill="#94a3b8" />
+  <rect x="250" y="50" width="6" height="75" rx="3" fill="#94a3b8" />
+  <rect x="340" y="50" width="6" height="75" rx="3" fill="#94a3b8" />
+  <rect x="410" y="60" width="6" height="65" rx="3" fill="#94a3b8" />
+  
+  <!-- LED Indicators -->
+  <circle cx="210" cy="185" r="6" fill="#10b981" />
+  <circle cx="250" cy="185" r="6" fill="#10b981" />
+  <circle cx="290" cy="185" r="6" fill="#3b82f6" />
+  <circle cx="330" cy="185" r="6" fill="#10b981" />
+  <circle cx="370" cy="185" r="6" fill="#10b981" />
+  
+  <!-- Barcode Tag -->
+  <rect x="200" y="210" width="200" height="30" rx="4" fill="#f8fafc" />
+  <text x="300" y="230" fill="#0f172a" font-family="monospace" font-weight="bold" font-size="12" text-anchor="middle">SN: ZTE994810294</text>
+  
+  <!-- Footer Info Card -->
+  <rect x="20" y="280" width="560" height="100" rx="8" fill="#1e293b" stroke="#334155" />
+  <text x="40" y="310" fill="#f8fafc" font-family="sans-serif" font-weight="bold" font-size="14">STATUS INSPEKSI: NORMAL ACTIVE (READY DISTRIBUTION)</text>
+  <text x="40" y="335" fill="#94a3b8" font-family="sans-serif" font-size="13">Frekuensi: 2.4GHz &amp; 5GHz Dual-Band • Port LAN: 4 Port Gigabit Normal</text>
+  <text x="40" y="360" fill="#10b981" font-family="sans-serif" font-weight="bold" font-size="12">✔ Diperiksa &amp; diverifikasi oleh Tim Teknis FiberPulse</text>
+</svg>

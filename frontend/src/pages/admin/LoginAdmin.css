@@ -1,0 +1,307 @@
+.enterprise-login-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: #F8FAFC;
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Left Banner Enterprise Navy Blue */
+.login-banner {
+  flex: 1.2;
+  background: linear-gradient(135deg, #152C4A 0%, #0E1E33 100%);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem;
+  color: white;
+  overflow: hidden;
+}
+
+.banner-mesh-bg {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(66, 161, 211, 0.18) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(37, 99, 235, 0.15) 0%, transparent 40%),
+    url('data:image/svg+xml;utf8,<svg opacity="0.04" xmlns="http://www.w3.org/2000/svg" width="60" height="60"><circle cx="30" cy="30" r="1.5" fill="white"/></svg>');
+  background-size: cover, cover, 60px 60px;
+}
+
+.banner-content {
+  position: relative;
+  z-index: 10;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.brand-header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  padding: 0.75rem 1.25rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  margin-bottom: 2.5rem;
+}
+
+.brand-badge-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #42A1D3 0%, #2563EB 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(66, 161, 211, 0.35);
+}
+
+.brand-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin: 0;
+  color: white;
+  letter-spacing: -0.01em;
+}
+
+.brand-tagline {
+  font-size: 0.75rem;
+  color: #94A3B8;
+  font-weight: 600;
+}
+
+.banner-hero-text h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+  color: white;
+}
+
+.banner-hero-text p {
+  font-size: 1rem;
+  color: #CBD5E1;
+  line-height: 1.6;
+  font-weight: 400;
+  margin-bottom: 2.5rem;
+}
+
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.85rem 1.25rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #E2E8F0;
+  transition: transform 0.2s ease;
+}
+
+.feature-item:hover {
+  transform: translateX(4px);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.feature-icon {
+  color: #42A1D3;
+  display: flex;
+  align-items: center;
+}
+
+.banner-footer-info {
+  font-size: 0.75rem;
+  color: #64748B;
+  font-weight: 500;
+}
+
+/* Right Form Enterprise Container */
+.login-form-container {
+  flex: 1;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.03);
+}
+
+.login-form-wrapper {
+  width: 100%;
+  max-width: 420px;
+}
+
+.form-brand-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #152C4A 0%, #42A1D3 100%);
+  color: white;
+  font-weight: 900;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 14px rgba(21, 44, 74, 0.2);
+}
+
+.login-title {
+  font-size: clamp(1.3rem, 2.2vw, 1.75rem);
+  font-weight: 800;
+  color: #1E293B;
+  margin-bottom: 0.4rem;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.login-subtitle {
+  color: #64748B;
+  margin-bottom: 1.75rem;
+  line-height: 1.5;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.login-error-alert {
+  background-color: #FEF2F2;
+  border: 1px solid #FECACA;
+  color: #DC2626;
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-group label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #2C3E50;
+  margin-bottom: 0.4rem;
+  display: block;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  border: 1px solid #CBD5E1;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #2C3E50;
+  outline: none;
+  background-color: #F8FAFC;
+  transition: all 0.2s ease;
+}
+
+.form-group input:focus {
+  border-color: #42A1D3;
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(66, 161, 211, 0.18);
+}
+
+.password-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: #94A3B8;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+
+.password-toggle-btn:hover {
+  color: #1E293B;
+  background-color: rgba(241, 245, 249, 0.8);
+}
+
+.enterprise-login-btn {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.85rem 1rem;
+  font-size: 0.925rem;
+  font-weight: 800;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #42A1D3 0%, #2563EB 100%);
+  color: white;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(66, 161, 211, 0.35);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.enterprise-login-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(66, 161, 211, 0.45);
+}
+
+.security-notice {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: #64748B;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .login-banner {
+    display: none;
+  }
+  .login-form-container {
+    padding: 2rem 1.5rem;
+    width: 100%;
+    min-height: 100vh;
+  }
+  .login-title {
+    white-space: normal;
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-form-container {
+    padding: 1.5rem 1rem;
+  }
+  .login-title {
+    font-size: 1.35rem;
+  }
+  .login-subtitle {
+    font-size: 0.8rem;
+  }
+}

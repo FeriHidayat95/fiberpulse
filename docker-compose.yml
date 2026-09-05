@@ -1,0 +1,105 @@
+﻿services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: fiberpulse_backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+      - "8080:8080"
+    environment:
+      APP_NAME: FiberPulse
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_URL: http://localhost:8000
+      DB_CONNECTION: pgsql
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_DATABASE: fiberpulse
+      DB_USERNAME: fiberpulse
+      DB_PASSWORD: fiberpulse_secret
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REVERB_APP_ID: fiberpulse_app
+      REVERB_APP_KEY: fiberpulse_key
+      REVERB_APP_SECRET: fiberpulse_secret
+      REVERB_HOST: "0.0.0.0"
+      REVERB_PORT: 8080
+      REVERB_SCHEME: "http"
+    volumes:
+      - ./backend:/var/www/html
+      - /var/www/html/vendor
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - fiberpulse_network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: fiberpulse_frontend
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_URL: http://localhost:8000/api
+      VITE_REVERB_APP_KEY: fiberpulse_key
+      VITE_REVERB_HOST: localhost
+      VITE_REVERB_PORT: 8080
+      VITE_REVERB_SCHEME: http
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - fiberpulse_network
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: fiberpulse_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: fiberpulse
+      POSTGRES_USER: fiberpulse
+      POSTGRES_PASSWORD: fiberpulse_secret
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - fiberpulse_network
+
+  redis:
+    image: redis:7-alpine
+    container_name: fiberpulse_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - fiberpulse_network
+
+  proxy:
+    image: nginx:alpine
+    container_name: fiberpulse_proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - fiberpulse_network
+
+networks:
+  fiberpulse_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  redis_data:

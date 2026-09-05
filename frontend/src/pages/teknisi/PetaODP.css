@@ -1,0 +1,142 @@
+.tk-main-content {
+  padding: 1rem;
+  padding-bottom: 90px;
+  max-width: 600px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Toast Notification Banner */
+.tk-toast-banner {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2000;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  animation: slideDown 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  max-width: 90%;
+}
+
+@keyframes slideDown {
+  from { transform: translate(-50%, -15px); opacity: 0; }
+  to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+.tk-toast-banner.success {
+  background: #064E3B;
+  color: #A7F3D0;
+  border: 1px solid #059669;
+}
+
+.tk-toast-banner.error {
+  background: #7F1D1D;
+  color: #FECACA;
+  border: 1px solid #DC2626;
+}
+
+/* Tabs */
+.tk-filter-scroll {
+  display: flex;
+  overflow-x: auto;
+  gap: 0.4rem;
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.75rem;
+  scrollbar-width: none;
+}
+
+.tk-filter-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.tk-filter-pill {
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.725rem;
+  font-weight: 700;
+  border: 1px solid #CBD5E1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background: #FFFFFF;
+  color: #475569;
+}
+
+.tk-filter-pill.active {
+  background: linear-gradient(135deg, #152C4A 0%, #2563EB 100%);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+}
+
+.tk-filter-pill.inactive:hover {
+  background-color: #F8FAFC;
+  color: #152C4A;
+}
+
+/* Modals & Backdrop */
+.tk-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.tk-modal-box {
+  background-color: white;
+  border-radius: 16px;
+  padding: 1.25rem;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.15);
+  border: 1px solid #E2E8F0;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.tk-add-odp-modal {
+  max-width: 480px;
+}
+
+.tk-modal-close-btn {
+  background: #F1F5F9;
+  border: none;
+  color: #64748B;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.tk-modal-close-btn:hover {
+  background: #E2E8F0;
+  color: #152C4A;
+}

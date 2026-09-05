@@ -1,0 +1,124 @@
+.tk-login-root {
+  background-color: #F8FAFC;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.tk-login-mobile {
+  width: 100%;
+  max-width: 440px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #152C4A 0%, #0E1E33 100%);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .tk-login-mobile {
+    min-height: 760px;
+    height: auto;
+    border-radius: 24px;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 20px 35px -10px rgba(15, 23, 42, 0.15);
+  }
+}
+
+.tk-login-header {
+  padding: 3rem 2rem 1.75rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+
+.tk-brand-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin-bottom: 0.25rem;
+  color: white;
+  letter-spacing: -0.02em;
+}
+
+.tk-brand-subtitle {
+  font-size: 0.775rem;
+  color: #CBD5E1;
+  font-weight: 500;
+}
+
+.tk-login-card {
+  flex: 1;
+  background-color: white;
+  border-radius: 24px 24px 0 0;
+  padding: 2rem 1.75rem;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.tk-card-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #152C4A;
+  margin-bottom: 0.25rem;
+  text-align: center;
+}
+
+.tk-card-subtitle {
+  font-size: 0.775rem;
+  color: #64748B;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.tk-login-form {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 1rem;
+}
+
+.tk-input-group label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 0.35rem;
+  display: block;
+}
+
+.tk-btn-masuk {
+  width: 100%;
+  padding: 11px 16px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #152C4A 0%, #2563EB 100%);
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+  transition: all 0.15s ease;
+  margin-top: 0.5rem;
+}
+
+.tk-btn-masuk:hover {
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+}
+
+.tk-btn-masuk:active {
+  transform: scale(0.98);
+}

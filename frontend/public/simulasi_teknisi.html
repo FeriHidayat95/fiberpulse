@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Simulasi Portal Teknisi — FiberPulse</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      --primary-dark: #152C4A;
+      --primary-light: #42A1D3;
+      --accent-blue: #2563EB;
+      --accent-hover: #1D4ED8;
+      --bg-slate: #F8FAFC;
+      --border-color: #E2E8F0;
+      --text-main: #152C4A;
+      --text-muted: #64748B;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: #0F172A;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+
+    /* Simulation Container Wrapper (Phone Bezel Simulation on Desktop) */
+    .device-frame {
+      width: 100%;
+      max-width: 420px;
+      height: 900px;
+      max-height: 96vh;
+      background-color: var(--bg-slate);
+      border-radius: 36px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 10px #1E293B;
+      border: 4px solid #334155;
+    }
+
+    /* Top Status Notch Simulation */
+    .status-bar {
+      height: 24px;
+      background-color: #FFFFFF;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 1.25rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #152C4A;
+      font-family: 'JetBrains Mono', monospace;
+      flex-shrink: 0;
+    }
+
+    /* Top App Header (70px) */
+    .top-header {
+      height: 64px;
+      background-color: #FFFFFF;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 1.25rem;
+      flex-shrink: 0;
+      z-index: 10;
+    }
+
+    .brand-logo {
+      height: 34px;
+      display: flex;
+      align-items: center;
+    }
+
+    .brand-logo img {
+      max-height: 100%;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .profile-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #152C4A 0%, #2563EB 100%);
+      color: white;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+      box-shadow: 0 2px 6px rgba(37,99,235,0.25);
+    }
+
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      background-color: #10B981;
+      border: 2px solid #FFFFFF;
+      border-radius: 50%;
+      position: absolute;
+      bottom: -1px;
+      right: -1px;
+    }
+
+    /* Scrollable Content Area */
+    .content-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem 1.15rem 5.5rem 1.15rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    /* FiberPulse Operations Hero Banner */
+    .hero-banner {
+      background: linear-gradient(135deg, #F1F7FC 0%, #FFFFFF 100%);
+      border: 1px solid #E2EBF4;
+      border-radius: 14px;
+      padding: 1rem 1.15rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .hero-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .hero-subtitle {
+      font-size: 0.725rem;
+      color: var(--text-muted);
+      line-height: 1.35;
+      font-weight: 500;
+    }
+
+    .btn-refresh {
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      color: #334155;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 5px 10px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      flex-shrink: 0;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+
+    /* 4 KPI Metric Cards (2x2 Grid) */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+    }
+
+    .kpi-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 0.75rem 0.85rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.35rem;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .kpi-card.active {
+      border-color: var(--accent-blue);
+      background-color: #EFF6FF;
+    }
+
+    .kpi-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .kpi-label {
+      font-size: 0.6rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #94A3B8;
+    }
+
+    .kpi-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .kpi-value {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: -0.02em;
+    }
+
+    .kpi-sub {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Filter Pills */
+    .filter-scroll {
+      display: flex;
+      gap: 0.4rem;
+      overflow-x: auto;
+      padding-bottom: 2px;
+      scrollbar-width: none;
+    }
+    .filter-scroll::-webkit-scrollbar { display: none; }
+
+    .filter-pill {
+      padding: 5px 12px;
+      border-radius: 8px;
+      font-size: 0.725rem;
+      font-weight: 700;
+      white-space: nowrap;
+      cursor: pointer;
+      border: 1px solid #CBD5E1;
+      background: #FFFFFF;
+      color: #475569;
+      transition: all 0.15s ease;
+    }
+
+    .filter-pill.active {
+      background: linear-gradient(135deg, #152C4A 0%, #2563EB 100%);
+      color: #FFFFFF;
+      border-color: transparent;
+      box-shadow: 0 2px 6px rgba(37,99,235,0.25);
+    }
+
+    /* Ticket Card */
+    .ticket-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      position: relative;
+    }
+
+    .ticket-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .ticket-id {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: #2563EB;
+      font-family: 'JetBrains Mono', monospace;
+      background: #EFF6FF;
+      border: 1px solid #DBEAFE;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .ticket-type {
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    .type-psb { background: #EFF6FF; color: #2563EB; border: 1px solid #BFDBFE; }
+    .type-repair { background: #FEF2F2; color: #DC2626; border: 1px solid #FECACA; }
+
+    .cust-name {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-top: 2px;
+    }
+
+    .cust-address {
+      font-size: 0.75rem;
+      color: #475569;
+      line-height: 1.35;
+    }
+
+    .ticket-details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.4rem;
+      background: #F8FAFC;
+      border: 1px solid #F1F5F9;
+      padding: 0.5rem 0.65rem;
+      border-radius: 8px;
+      font-size: 0.7rem;
+    }
+
+    .detail-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .detail-label {
+      font-size: 0.6rem;
+      color: #94A3B8;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .detail-value {
+      font-weight: 700;
+      color: var(--primary-dark);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .ticket-actions {
+      display: flex;
+      gap: 0.4rem;
+      margin-top: 0.25rem;
+    }
+
+    .btn-action-outline {
+      flex: 1;
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      color: #334155;
+      font-size: 0.725rem;
+      font-weight: 700;
+      padding: 7px 0;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .btn-action-primary {
+      flex: 1.4;
+      background: linear-gradient(135deg, #152C4A 0%, #2563EB 100%);
+      border: none;
+      color: white;
+      font-size: 0.725rem;
+      font-weight: 700;
+      padding: 7px 0;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(37,99,235,0.25);
+    }
+
+    /* Empty State Card */
+    .empty-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 2.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.5rem;
+    }
+
+    .empty-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background-color: #ECFDF5;
+      color: #059669;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.25rem;
+    }
+
+    .empty-title {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: #059669;
+    }
+
+    .empty-desc {
+      font-size: 0.725rem;
+      color: #64748B;
+      max-width: 240px;
+      line-height: 1.4;
+    }
+
+    /* Bottom Elevated Notch Navigation Bar (5 Slots) */
+    .bottom-nav {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background: #FFFFFF;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0 0.5rem;
+      z-index: 20;
+    }
+
+    .nav-tab {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      color: #94A3B8;
+      text-decoration: none;
+      font-size: 0.65rem;
+      font-weight: 700;
+      cursor: pointer;
+      flex: 1;
+      transition: all 0.15s;
+    }
+
+    .nav-tab.active {
+      color: var(--accent-blue);
+    }
+
+    .center-action-btn {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #152C4A 0%, #2563EB 100%);
+      color: white;
+      border: 3px solid #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(37,99,235,0.35);
+      margin-top: -20px;
+    }
+
+    /* Simulation View Switcher Controls (Top External Bar) */
+    .sim-controls {
+      position: absolute;
+      top: -45px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      background: #1E293B;
+      padding: 4px 8px;
+      border-radius: 8px;
+      border: 1px solid #334155;
+    }
+
+    .sim-btn {
+      background: #334155;
+      color: #94A3B8;
+      border: none;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .sim-btn.active {
+      background: #2563EB;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="device-frame">
+    
+    <!-- Top Status Bar Simulation -->
+    <div class="status-bar">
+      <span>09:41</span>
+      <span>4G • 98%</span>
+    </div>
+
+    <!-- Mobile Top Header -->
+    <header class="top-header">
+      <div class="brand-logo">
+        <img src="/logo-sgt.png" alt="FiberPulse" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 120 30\'><text x=\'0\' y=\'22\' fill=\'%23152C4A\' font-weight=\'800\' font-size=\'20\' font-family=\'sans-serif\'>SGT<tspan fill=\'%232563EB\'>NET</tspan></text></svg>'">
+      </div>
+      <button class="profile-btn" title="Menu Profil Teknisi">
+        <i data-lucide="user" style="width: 18px; height: 18px;"></i>
+        <div class="status-dot"></div>
+      </button>
+    </header>
+
+    <!-- Scrollable Content -->
+    <main class="content-area">
+      
+      <!-- Operations Hero Banner -->
+      <section class="hero-banner">
+        <div class="hero-top">
+          <div>
+            <h1 class="hero-title">Tugas & Operasional Lapangan</h1>
+            <p class="hero-subtitle">Kelola tiket PSB, perbaikan gangguan, ODP, dan laporan material.</p>
+          </div>
+          <button class="btn-refresh">
+            <i data-lucide="refresh-cw" style="width: 12px; height: 12px;"></i>
+            <span>Refresh</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- 4 KPI Metric Cards (2x2 Grid) -->
+      <section class="kpi-grid">
+        
+        <!-- Total Tugas -->
+        <div class="kpi-card active" onclick="switchFilter('semua')">
+          <div class="kpi-card-header">
+            <span class="kpi-label">TOTAL TUGAS</span>
+            <div class="kpi-icon" style="background-color: #F1F7FC; color: #42A1D3;">
+              <i data-lucide="clipboard-list" style="width: 13px; height: 13px;"></i>
+            </div>
+          </div>
+          <div>
+            <div class="kpi-value">2</div>
+            <div class="kpi-sub">Semua Tiket Hari Ini</div>
+          </div>
+        </div>
+
+        <!-- Tugas Pending -->
+        <div class="kpi-card" onclick="switchFilter('pending')">
+          <div class="kpi-card-header">
+            <span class="kpi-label" style="color: #D97706;">PENDING</span>
+            <div class="kpi-icon" style="background-color: #FFFBEB; color: #D97706;">
+              <i data-lucide="clock" style="width: 13px; height: 13px;"></i>
+            </div>
+          </div>
+          <div>
+            <div class="kpi-value" style="color: #D97706;">1</div>
+            <div class="kpi-sub">Menunggu Eksekusi</div>
+          </div>
+        </div>
+
+        <!-- Sedang Diproses -->
+        <div class="kpi-card" onclick="switchFilter('proses')">
+          <div class="kpi-card-header">
+            <span class="kpi-label" style="color: #2563EB;">DIPROSES</span>
+            <div class="kpi-icon" style="background-color: #EFF6FF; color: #2563EB;">
+              <i data-lucide="activity" style="width: 13px; height: 13px;"></i>
+            </div>
+          </div>
+          <div>
+            <div class="kpi-value" style="color: #2563EB;">1</div>
+            <div class="kpi-sub">Pengerjaan Lapangan</div>
+          </div>
+        </div>
+
+        <!-- Tugas Selesai -->
+        <div class="kpi-card" onclick="switchFilter('selesai')">
+          <div class="kpi-card-header">
+            <span class="kpi-label" style="color: #059669;">SELESAI</span>
+            <div class="kpi-icon" style="background-color: #ECFDF5; color: #059669;">
+              <i data-lucide="check-circle-2" style="width: 13px; height: 13px;"></i>
+            </div>
+          </div>
+          <div>
+            <div class="kpi-value" style="color: #059669;">0</div>
+            <div class="kpi-sub">Berhasil Dikerjakan</div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Filter Tabs -->
+      <section class="filter-scroll">
+        <button class="filter-pill active" onclick="switchFilter('semua')">Semua (2)</button>
+        <button class="filter-pill" onclick="switchFilter('pending')">Pending (1)</button>
+        <button class="filter-pill" onclick="switchFilter('proses')">Diproses (1)</button>
+        <button class="filter-pill" onclick="switchFilter('selesai')">Selesai (0)</button>
+      </section>
+
+      <!-- Task Item List Stream -->
+      <div id="taskList" style="display: flex; flex-direction: column; gap: 0.75rem;">
+        
+        <!-- Ticket 1: Pasang Baru (In Progress) -->
+        <div class="ticket-card" data-status="proses">
+          <div class="ticket-header">
+            <span class="ticket-id">TK-1786612526</span>
+            <span class="ticket-type type-psb">Pasang Baru (PSB)</span>
+          </div>
+
+          <div>
+            <div class="cust-name">Ibu Ratna Dewi</div>
+            <div class="cust-address">Desa Salagedang, Blok Babakan RT 04/RW 02</div>
+          </div>
+
+          <div class="ticket-details-grid">
+            <div class="detail-item">
+              <span class="detail-label">PAKET SPEED</span>
+              <span class="detail-value">30 Mbps</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">ALOKASI ODP</span>
+              <span class="detail-value">ODP-D1-01 (Port 4)</span>
+            </div>
+          </div>
+
+          <div class="ticket-actions">
+            <a href="https://wa.me/6285324085996" target="_blank" class="btn-action-outline" style="color: #059669;">
+              <i data-lucide="message-circle" style="width: 13px; height: 13px;"></i>
+              <span>WhatsApp</span>
+            </a>
+            <a href="https://maps.google.com" target="_blank" class="btn-action-outline" style="color: #2563EB;">
+              <i data-lucide="map-pin" style="width: 13px; height: 13px;"></i>
+              <span>Navigasi</span>
+            </a>
+            <button class="btn-action-primary" onclick="alert('Buka Form Pelaporan & Upload Bukti Instalasi')">
+              <i data-lucide="clipboard-check" style="width: 13px; height: 13px;"></i>
+              <span>Input Laporan</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Ticket 2: Perbaikan Gangguan (Pending) -->
+        <div class="ticket-card" data-status="pending">
+          <div class="ticket-header">
+            <span class="ticket-id">TK-1786612999</span>
+            <span class="ticket-type type-repair">Perbaikan Gangguan</span>
+          </div>
+
+          <div>
+            <div class="cust-name">Bpk. Hendra Gunawan</div>
+            <div class="cust-address">Jl. Raya Cipunagara No. 12 (LOS Merah)</div>
+          </div>
+
+          <div class="ticket-details-grid">
+            <div class="detail-item">
+              <span class="detail-label">STATUS TIKET</span>
+              <span class="detail-value" style="color: #D97706;">Pending Dispatch</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">ESTIMASI REDAMAN</span>
+              <span class="detail-value">-28.4 dBm (High)</span>
+            </div>
+          </div>
+
+          <div class="ticket-actions">
+            <a href="https://wa.me/628123456789" target="_blank" class="btn-action-outline" style="color: #059669;">
+              <i data-lucide="message-circle" style="width: 13px; height: 13px;"></i>
+              <span>WhatsApp</span>
+            </a>
+            <button class="btn-action-primary" onclick="alert('Mulai Pengerjaan Tiket Gangguan')">
+              <i data-lucide="play" style="width: 13px; height: 13px;"></i>
+              <span>Mulai Tugas</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Optimal Empty State (Hidden when items exist) -->
+      <div id="emptyState" class="empty-card" style="display: none;">
+        <div class="empty-icon">
+          <i data-lucide="shield-check" style="width: 24px; height: 24px;"></i>
+        </div>
+        <div class="empty-title">Semua Tugas Tuntas</div>
+        <div class="empty-desc">Seluruh tiket penugasan lapangan telah selesai dikerjakan dengan optimal.</div>
+      </div>
+
+    </main>
+
+    <!-- Bottom Elevated Notch Navigation Bar (5 Slots) -->
+    <nav class="bottom-nav">
+      <!-- Slot 1: Tugas -->
+      <div class="nav-tab active">
+        <i data-lucide="clipboard-check" style="width: 18px; height: 18px;"></i>
+        <span>Tugas</span>
+      </div>
+
+      <!-- Slot 2: Peta ODP -->
+      <div class="nav-tab">
+        <i data-lucide="compass" style="width: 18px; height: 18px;"></i>
+        <span>Peta ODP</span>
+      </div>
+
+      <!-- Slot 3: Floating Action -->
+      <div class="center-action-btn" title="Scan QR Code ODP / Check-in" onclick="alert('Buka Scanner QR / Kamera ODP')">
+        <i data-lucide="qr-code" style="width: 22px; height: 22px;"></i>
+      </div>
+
+      <!-- Slot 4: Riwayat -->
+      <div class="nav-tab">
+        <i data-lucide="history" style="width: 18px; height: 18px;"></i>
+        <span>Riwayat</span>
+      </div>
+
+      <!-- Slot 5: Profil -->
+      <div class="nav-tab">
+        <i data-lucide="user" style="width: 18px; height: 18px;"></i>
+        <span>Profil</span>
+      </div>
+    </nav>
+
+  </div>
+
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Interactive filter function
+    function switchFilter(status) {
+      const pills = document.querySelectorAll('.filter-pill');
+      pills.forEach(p => p.classList.remove('active'));
+
+      const kpis = document.querySelectorAll('.kpi-card');
+      kpis.forEach(k => k.classList.remove('active'));
+
+      const cards = document.querySelectorAll('#taskList .ticket-card');
+      const emptyState = document.getElementById('emptyState');
+      let visibleCount = 0;
+
+      cards.forEach(c => {
+        if (status === 'semua' || c.getAttribute('data-status') === status) {
+          c.style.display = 'flex';
+          visibleCount++;
+        } else {
+          c.style.display = 'none';
+        }
+      });
+
+      if (visibleCount === 0) {
+        emptyState.style.display = 'flex';
+      } else {
+        emptyState.style.display = 'none';
+      }
+
+      // Set active button
+      event.target.classList.add('active');
+    }
+  </script>
+</body>
+</html>

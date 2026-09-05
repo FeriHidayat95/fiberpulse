@@ -1,0 +1,252 @@
+.tk-main-content {
+  padding: 1rem;
+  padding-bottom: 90px;
+  min-height: 100vh;
+  background-color: #F8FAFC;
+  box-sizing: border-box;
+}
+
+/* 4 KPI Grid Cards (2x2 on Mobile, 4 Side-by-Side on Tablet/Desktop) */
+.tk-stats-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .tk-stats-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.tk-stat-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 0.75rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.35rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.02);
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.tk-stat-card:hover {
+  transform: translateY(-1px);
+  border-color: #CBD5E1;
+}
+
+.tk-stat-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.tk-stat-circle-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.icon-blue {
+  background: #F1F7FC;
+  color: #2563EB;
+}
+
+.icon-orange {
+  background: #FFFBEB;
+  color: #D97706;
+}
+
+.icon-process {
+  background: #EFF6FF;
+  color: #2563EB;
+}
+
+.icon-green {
+  background: #ECFDF5;
+  color: #059669;
+}
+
+.tk-stat-main-num {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #152C4A;
+  line-height: 1;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: -0.02em;
+}
+
+.tk-stat-card-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tk-stat-card-title {
+  font-size: 0.6rem;
+  font-weight: 800;
+  color: #94A3B8;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.tk-stat-card-sub {
+  font-size: 0.65rem;
+  color: #64748B;
+  font-weight: 500;
+}
+
+/* Active Selected Card States */
+.active-card-total {
+  background: #EFF6FF;
+  border: 1.5px solid #2563EB;
+}
+
+.active-card-pending {
+  background: #FFFBEB;
+  border: 1.5px solid #F59E0B;
+}
+
+.active-card-process {
+  background: #EFF6FF;
+  border: 1.5px solid #2563EB;
+}
+
+.active-card-done {
+  background: #ECFDF5;
+  border: 1.5px solid #10B981;
+}
+
+/* Filter Pills */
+.tk-filter-scroll {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.tk-filter-pill {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 4px;
+  border-radius: 8px;
+  font-size: 0.725rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+  border: 1px solid transparent;
+  user-select: none;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.tk-filter-pill.active {
+  background: linear-gradient(135deg, #152C4A 0%, #2563EB 100%);
+  color: #FFFFFF;
+  font-weight: 800;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+  border-color: transparent;
+}
+
+.tk-filter-pill.inactive {
+  background-color: #FFFFFF;
+  color: #64748B;
+  border-color: #E2E8F0;
+}
+
+.tk-filter-pill.inactive:hover {
+  background-color: #F8FAFC;
+  color: #152C4A;
+  border-color: #CBD5E1;
+}
+
+/* Task Cards */
+.tk-task-card {
+  background-color: #FFFFFF;
+  border-radius: 14px;
+  padding: 1rem;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  margin-bottom: 0.75rem;
+  transition: all 0.15s ease;
+}
+
+.tk-task-card:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+}
+
+.tk-task-type-badge {
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.tk-task-status-badge {
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+
+.tk-task-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #152C4A;
+  line-height: 1.3;
+}
+
+.tk-task-info-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: #475569;
+  margin-bottom: 0.35rem;
+}
+
+.tk-btn-start {
+  width: 100%;
+  background: linear-gradient(135deg, #152C4A 0%, #2563EB 100%);
+  color: white;
+  border: none;
+  padding: 9px 14px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 0.75rem;
+  transition: all 0.15s ease;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.tk-btn-start:hover {
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
