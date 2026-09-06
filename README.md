@@ -27,6 +27,11 @@
 > - **Codebase Inspection:** Technical recruiters, hiring managers, and system architects are granted full rights to inspect, clone, and execute this codebase locally for hiring and technical evaluation under the [Technical Portfolio Evaluation License](LICENSE).
 > - **Proprietary Safeguards:** Live telecom hardware connectors (OLT SNMP polling and TR-069 ACS RPC triggers) interface through **sandboxed mock adapters** to safeguard proprietary commercial intellectual property. Turnkey commercial deployment or redistribution without a written commercial license is strictly prohibited.
 
+> [!NOTE]
+> **Production Provenance & Engineering History**
+> 
+> This codebase represents a sanitized, standalone architectural release extracted from a multi-year commercial deployment that has actively powered FTTH network topology, physical ODP port mapping, and real-time field fleet dispatching in Indonesia since 2022. Internal proprietary commit logs, infrastructure credentials, and customer PII have been redacted for confidentiality and enterprise compliance.
+
 ## Overview
 
 Deploying and maintaining Fiber-to-the-Home (FTTH) infrastructure involves managing thousands of distributed Optical Distribution Points (ODPs), optical splitters, drop cables, and on-the-ground technician fleets. 
