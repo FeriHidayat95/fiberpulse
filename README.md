@@ -20,7 +20,12 @@
 
 ---
 
-</div>
+> [!IMPORTANT]
+> **Architectural Portfolio Showcase & Intellectual Property Notice**
+> 
+> This repository is published strictly as an **Architectural Portfolio Showcase** demonstrating enterprise-grade geospatial GIS topology, real-time WebSocket event streaming, and full-stack software architecture.
+> - **Codebase Inspection:** Technical recruiters, hiring managers, and system architects are granted full rights to inspect, clone, and execute this codebase locally for hiring and technical evaluation under the [Technical Portfolio Evaluation License](LICENSE).
+> - **Proprietary Safeguards:** Live telecom hardware connectors (OLT SNMP polling and TR-069 ACS RPC triggers) interface through **sandboxed mock adapters** to safeguard proprietary commercial intellectual property. Turnkey commercial deployment or redistribution without a written commercial license is strictly prohibited.
 
 ## Overview
 
